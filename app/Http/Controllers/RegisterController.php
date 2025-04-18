@@ -17,7 +17,7 @@ class RegisterController extends Controller
         $validatedAttributes = request()->validate([
             'name' => ['required'],
             'email' => ['required', 'email'],
-            'password' => ['required', Password::min(6), 'confirmed'], // password_confirmation
+            'password' => ['required', 'confirmed'], // password_confirmation
             'user_type' => ['required']
         ]);
 
@@ -26,6 +26,5 @@ class RegisterController extends Controller
         Auth::login($user);
 
         return redirect('/');
-        dd('?');
     }
 }
