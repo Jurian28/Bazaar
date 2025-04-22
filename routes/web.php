@@ -5,7 +5,19 @@ use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home/index');
+});
+
+Route::get('/agenda', function () {
+    return view('agenda/index');
+});
+
+Route::get('/favorites', function () {
+    return view('favorites/index');
+});
+
+Route::get('/history', function () {
+    return view('history/index');
 });
 
 Route::controller(RegisterController::class)->group(function () {
