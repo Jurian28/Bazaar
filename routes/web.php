@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AdController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,6 +19,12 @@ Route::get('/favorites', function () {
 
 Route::get('/history', function () {
     return view('history/index');
+});
+
+Route::controller(AdController::class)->group(function () {
+    Route::get('/index-ad', 'index');
+    Route::get('/create-ad', 'showCreateForm');
+    Route::post('/create-ad', 'submitCreateForm');
 });
 
 Route::controller(RegisterController::class)->group(function () {
