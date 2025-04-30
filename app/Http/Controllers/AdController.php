@@ -15,7 +15,7 @@ class AdController extends Controller {
     }
     public function submitCreateForm(Request $request) {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
             'price_per_day' => 'required',
             'location' => 'required|string|max:255',
@@ -28,7 +28,6 @@ class AdController extends Controller {
 
         Ad::create($validated);
 
-
-        return redirect('/home/index');
+        return redirect('/');
     }
 }

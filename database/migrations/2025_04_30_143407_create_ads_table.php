@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('ads', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->string('description');
             $table->decimal('price_per_day', 8, 2);
             $table->string('location');
