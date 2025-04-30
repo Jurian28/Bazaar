@@ -8,62 +8,115 @@
     <title>Document</title>
 </head>
 <body>
-<form method="POST" action="/create-ad" enctype="multipart/form-data" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg space-y-4">
+
+<form method="POST" action="/create-ad" enctype="multipart/form-data" class="form-container">
     @csrf
 
-    <h2 class="text-2xl font-semibold text-center">Create Your Ad</h2>
+    <h2>Create Your Ad</h2>
 
-    <!-- Photo Field -->
-    <div>
-        <label for="photo" class="block text-lg font-medium text-gray-700">Photo:</label>
-        <input type="file" name="photo" class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+    <div class="form-group">
+        <label for="photo">Photo:</label>
+        <input type="file" name="photo" />
         @error('photo')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+        <p>{{ $message }}</p>
         @enderror
     </div>
 
-    <!-- Title Field -->
-    <div>
-        <label for="title" class="block text-lg font-medium text-gray-700">Title:</label>
-        <input type="text" name="title" value="{{ old('title') }}" class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" name="title" value="{{ old('title') }}" />
         @error('title')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+        <p>{{ $message }}</p>
         @enderror
     </div>
 
-    <!-- Description Field -->
-    <div>
-        <label for="description" class="block text-lg font-medium text-gray-700">Description:</label>
-        <input type="text" name="description" value="{{ old('description') }}" class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" name="description" value="{{ old('description') }}" />
         @error('description')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+        <p>{{ $message }}</p>
         @enderror
     </div>
 
-    <!-- Price per Day Field -->
-    <div>
-        <label for="price_per_day" class="block text-lg font-medium text-gray-700">Price per day:</label>
-        <input type="number" name="price_per_day" value="{{ old('price_per_day') }}" class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+    <div class="form-group">
+        <label for="price_per_day">Price per day:</label>
+        <input type="number" name="price_per_day" value="{{ old('price_per_day') }}" />
         @error('price_per_day')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+        <p>{{ $message }}</p>
         @enderror
     </div>
 
-    <!-- Location Field -->
-    <div>
-        <label for="location" class="block text-lg font-medium text-gray-700">Location:</label>
-        <input type="text" name="location" value="{{ old('location') }}" class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+    <div class="form-group">
+        <label for="location">Location:</label>
+        <input type="text" name="location" value="{{ old('location') }}" />
         @error('location')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+        <p>{{ $message }}</p>
         @enderror
     </div>
 
-    <!-- Submit Button -->
-    <div class="text-center">
-        <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            Create
-        </button>
-    </div>
+    <button type="submit" class="submit-btn">Create</button>
 </form>
 </body>
 </html>
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group input[type="file"] {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    .form-group p {
+        color: #e11d48;
+        font-size: 0.9rem;
+        margin-top: 0.25rem;
+    }
+
+    .submit-btn {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .submit-btn:hover {
+        background-color: #1d4ed8;
+    }
+</style>
