@@ -19,6 +19,7 @@ class AdController extends Controller {
             'description' => 'required|string',
             'price_per_day' => 'required',
             'location' => 'required|string|max:255',
+            'expires_at' => 'required|date|after:today',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         if ($request->hasFile('photo')) {

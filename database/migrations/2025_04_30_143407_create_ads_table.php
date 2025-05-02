@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->string('description');
             $table->decimal('price_per_day', 8, 2);
             $table->string('location');
+            $table->date('expires_at');
             $table->string('photo_path');
             $table->timestamps();
         });

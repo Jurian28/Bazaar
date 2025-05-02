@@ -11,6 +11,7 @@ class Ad extends Model
         'description',
         'price_per_day',
         'location',
-        'photo_path'
+        'photo_path',
+        'expires_at'
     ];
 }

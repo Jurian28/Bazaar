@@ -54,6 +54,14 @@
         @enderror
     </div>
 
+    <div class="form-group">
+        <label for="expires_at">Expires at:</label>
+        <input type="date" name="expires_at" value="{{ old('expires_at') }}" />
+        @error('expires_at')
+        <p>{{ $message }}</p>
+        @enderror
+    </div>
+
     <button type="submit" class="submit-btn">Create</button>
 </form>
 </body>
