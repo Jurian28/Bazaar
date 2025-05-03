@@ -25,6 +25,7 @@ Route::controller(AdController::class)->group(function () {
     Route::get('/index-ad', 'index');
     Route::get('/create-ad', 'showCreateForm');
     Route::post('/create-ad', 'submitCreateForm');
+    Route::get('/agenda', 'agenda');
 });
 
 Route::controller(RegisterController::class)->group(function () {
@@ -37,3 +38,4 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/login', 'store');
     Route::post('/logout', 'destroy');
 });
+

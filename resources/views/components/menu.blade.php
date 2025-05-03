@@ -3,7 +3,7 @@
     <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
       <a class="mr-5 hover:text-gray-900 text-gray-100">First Link</a>
       <a class="mr-5 hover:text-gray-900 text-gray-100">Second Link</a>
-      <a class="mr-5 hover:text-gray-900 text-gray-100">Third Link</a>
+      <a class="mr-5 hover:text-gray-900 text-gray-100" href="/agenda">Third Link</a>
       <a class="hover:text-gray-900 text-gray-100" href="/index-ad">Fourth Link</a>
     </nav>
     <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ad;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdController extends Controller {
@@ -30,5 +31,23 @@ class AdController extends Controller {
         Ad::create($validated);
 
         return redirect('/');
+    }
+
+
+    public function agenda(Request $request) {
+        $month = $request->input('month', now()->month);
+        $year = $request->input('year', now()->year);
+
+        $startOfMonth = Carbon::createFromDate($year, $month, 1);
+        $daysInMonth = $startOfMonth->daysInMonth;
+        $startDay = $startOfMonth->dayOfWeek;
+
+        // Example static events (or fetch from DB)
+        $events = [
+            ['date' => '2025-05-09', 'title' => 'Meeting'],
+            ['date' => '2025-05-21', 'title' => 'Deadline']
+        ];
+
+        return view('/ad/agenda', compact('daysInMonth', 'startDay', 'events', 'year', 'month'));
     }
 }
