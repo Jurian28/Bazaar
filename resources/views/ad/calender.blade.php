@@ -36,7 +36,7 @@
     <strong style="margin: 0 15px;">{{ \Carbon\Carbon::create($year, $month)->format('F Y') }}</strong>
     <a href="?month={{ $nextMonth }}&year={{ $nextYear }}">➡️</a>
 
-    <a href="{{ url('/agenda') }}" style="position: absolute; right: 0;">nu</a>
+    <a href="{{ url('/calender') }}" style="position: absolute; right: 0;">nu</a>
 </div>
 
 <div class="calendar">

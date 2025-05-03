@@ -34,7 +34,7 @@ class AdController extends Controller {
     }
 
 
-    public function agenda(Request $request) {
+    public function calender(Request $request) {
         $month = $request->input('month', now()->month);
         $year = $request->input('year', now()->year);
 
@@ -48,6 +48,6 @@ class AdController extends Controller {
             ['date' => '2025-05-21', 'title' => 'Deadline']
         ];
 
-        return view('/ad/agenda', compact('daysInMonth', 'startDay', 'events', 'year', 'month'));
+        return view('/ad/calender', compact('daysInMonth', 'startDay', 'events', 'year', 'month'));
     }
 }
