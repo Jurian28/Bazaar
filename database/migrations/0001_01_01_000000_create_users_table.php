@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('user_type');
+            $table->enum('user_type', [ 'gebruiker', 'particuliere_adverteerder', 'zakelijke_adverteerder' ]);
+
             $table->rememberToken();
             $table->timestamps();
         });
