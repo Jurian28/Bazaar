@@ -1,10 +1,22 @@
 <?php
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
+require __DIR__.'/company.php';
+require __DIR__.'/auth.php';
 
-Route::get('/', function () {
+
+
+Route::prefix('{companySlug}')->group(function () {
+    Route::get('/', [PublicController::class, 'index'])->name('index');
+});
+
+
+
+
+
+Route::get("/", function () {
     return view('home/index');
 });
 
@@ -20,13 +32,6 @@ Route::get('/history', function () {
     return view('history/index');
 });
 
-Route::controller(RegisterController::class)->group(function () {
-    Route::get('/register', 'create');
-    Route::post('/register', 'store');
-});
-
-Route::controller(LoginController::class)->group(function () {
-    Route::get('/login', 'create');
-    Route::post('/login', 'store');
-    Route::post('/logout', 'destroy');
+Route::controller(AdminController::class)->group(function () {
+    Route::get('/admin', 'index');
 });

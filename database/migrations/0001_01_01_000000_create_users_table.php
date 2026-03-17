@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('user_type', [ 'gebruiker', 'particuliere_adverteerder', 'zakelijke_adverteerder' ]);
-
+            $table->enum('user_type', [ 'user', 'seller', 'company', 'admin' ]);
+            $table->foreignId('company_id')->nullable()->constrained()->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

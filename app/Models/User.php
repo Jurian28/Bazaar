@@ -12,6 +12,10 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    const TYPE_USER = 'user';
+    const TYPE_SELLER = 'seller';
+    const TYPE_COMPANY = 'company';
+    const TYPE_ADMIN = 'admin';
     /**
      * The attributes that are mass assignable.
      *
@@ -45,5 +49,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    public function Company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }

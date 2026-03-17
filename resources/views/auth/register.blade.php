@@ -1,3 +1,5 @@
+@php use App\Models\User; @endphp
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -87,12 +89,12 @@
             id="user_type"
             class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-            <option value="gebruiker">Gebruiker</option>
-            <option value="particuliere_adverteerder">Particuliere adverteerder</option>
-            <option value="zakelijke_adverteerder">Zakelijke adverteerder</option>
+            <option value="{{ User::TYPE_USER }}">Gebruiker</option>
+            <option value="{{ User::TYPE_SELLER }}">Particuliere adverteerder</option>
+            <option value="{{ User::TYPE_COMPANY }}">Zakelijke adverteerder</option>
         </select>
         @error('user_type')
-            <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+        <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
         @enderror
     </div>
 
