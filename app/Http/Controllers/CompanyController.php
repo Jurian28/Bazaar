@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    function edit() {
+    function showSettings() {
         $company = auth()->user()->company;
         return view('company.settings', compact('company'));
     }
 
-
-    function update(Request $request) {
+    function updateSettings(Request $request) {
         $company = auth()->user()->company;
 
         $validatedData = $request->validate([
@@ -26,6 +25,6 @@ class CompanyController extends Controller
 
         $company->update($validatedData);
 
-        return redirect()->route('company.edit');
+        return redirect()->route('company.showSettings');
     }
 }

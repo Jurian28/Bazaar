@@ -6,10 +6,9 @@ use App\Models\Company;
 
 class PublicController extends Controller
 {
-    public function index($companySlug) {
-        $company = Company::where('slug', $companySlug)->first();
+    public function index($companySlug = null) {
+        $company = Company::getBySlug($companySlug);
 
-        return view('user.index', ['company' => $company]);
-
+        return view('public.index', ['company' => $company]);
     }
 }

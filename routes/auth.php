@@ -1,15 +1,15 @@
 <?php
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
+
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::controller(RegisterController::class)->group(function () {
-    Route::get('/register', 'create');
-    Route::post('/register', 'store');
-});
+function getAuthRoutes($suffix = ""): void {
+    Route::controller(AuthController::class)->group(function () use ($suffix) {
+        Route::get('/login', 'showLoginForm')->name('login' . $suffix);
+        Route::post('/login', 'login')->name('login' . $suffix);
+        Route::post('/logout', 'logout')->name('logout' . $suffix);
 
-Route::controller(LoginController::class)->group(function () {
-    Route::get('/login', 'create')->name('login');
-    Route::post('/login', 'store');
-    Route::post('/logout', 'destroy');
-});
+        Route::get('/register', 'showRegisterForm')->name('register' . $suffix);
+        Route::post('/register', 'register')->name('register' . $suffix);
+    });
+}

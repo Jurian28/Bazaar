@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <x-menu></x-menu>
+    <x-menu :company="$company"></x-menu>
     <div class="grid grid-cols-3 gap-3">
         <x-card href="/">
             <x-slot name="advertisementName">test</x-slot>

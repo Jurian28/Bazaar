@@ -8,11 +8,11 @@
 </head>
 
 <body class="bg-gray-100">
-<form class="max-w-md mx-auto mt-12 bg-white p-8 rounded-xl shadow-sm" method="POST" action="{{ url('/register') }}">
+<form class="max-w-md mx-auto mt-12 bg-white p-8 rounded-xl shadow-sm" method="POST" action="{{ company_route('register') }}">
     @csrf
 
     <h1 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
-        Register
+        Register to {{ $company->name }}
     </h1>
 
     <!-- Name -->

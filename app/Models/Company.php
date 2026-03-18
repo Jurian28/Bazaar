@@ -20,4 +20,11 @@ class Company extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public static function getBySlug($slug) {
+        if (!$slug) {
+            return Company::find(1); // default company
+        }
+        return Company::where('slug', $slug)->firstOrFail();
+    }
 }
