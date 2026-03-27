@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -55,7 +56,9 @@ class AuthController extends Controller
         Auth::login($user);
 
         if ($validatedAttributes['user_type'] == 'company') {
-            $this->makeNewCompany($user);
+            $company = $this->makeNewCompany($user);
+            $user->company_id = $company->id;
+            $user->save();
         }
 
         return redirect(company_route("index"));
@@ -78,5 +81,22 @@ class AuthController extends Controller
                 break;
 
         }
+    }
+
+    private function makeNewCompany($user)
+    {
+        do {
+            $slug = Str::random(10);
+        } while (Company::where('slug', $slug)->exists());
+
+
+        return Company::create([
+            'name' => 'New Company',
+            'slug' => $slug,
+            'primary_color' => '#1F2937',
+            'secondary_color' => '#6B7280',
+            'logo_url' => '',
+            'font_family' => '',
+        ]);
     }
 }

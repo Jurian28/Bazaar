@@ -12,7 +12,7 @@
             </div>
         @endif
 
-        <form action="{{ route('company.update') }}" method="POST">
+        <form action="{{ route('company.updateSettings') }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -23,12 +23,14 @@
                 @error('name') <span class="text-red-600">{{ $message }}</span> @enderror
             </div>
 
-            <div class="mb-4">
-                <label class="block mb-1 font-medium">Slug</label>
-                <input type="text" name="slug" value="{{ old('slug', $company->slug) }}"
-                       class="border rounded w-full p-2">
-                @error('slug') <span class="text-red-600">{{ $message }}</span> @enderror
-            </div>
+            @if($company->id !== 1)
+                <div class="mb-4">
+                    <label class="block mb-1 font-medium">Slug</label>
+                    <input type="text" name="slug" value="{{ old('slug', $company->slug) }}"
+                           class="border rounded w-full p-2">
+                    @error('slug') <span class="text-red-600">{{ $message }}</span> @enderror
+                </div>
+            @endif
 
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Primary Color</label>

@@ -1,20 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-    <x-menu :company="$company"></x-menu>
+@extends('components.layout')
+@section('title', 'Home page')
+
+@section('content')
     <div class="grid grid-cols-3 gap-3">
-        <x-card href="/">
-            <x-slot name="advertisementName">test</x-slot>
-            <x-slot name="one">test</x-slot>
-            <x-slot name="two">test</x-slot>
-            <x-slot name="three">hoi</x-slot>
-        </x-card>
+        @foreach($components as $component)
+            @switch($component->type)
+                @case('image')
+                    <x-homepage.image :component="$component" />
+                    @break
+
+                @case('text')
+                    <x-homepage.text :component="$component" />
+                    @break
+
+                @case('ads')
+                    <x-homepage.ad :component="$component" :company="$company" />
+                    @break
+
+            @endswitch
+        @endforeach
     </div>
-</body>
-</html>
+@endsection

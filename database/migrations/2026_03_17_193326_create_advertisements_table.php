@@ -17,10 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->decimal('price', 10, 2);
             $table->enum('type', ['sale','rental'])->default('sale');
-            $table->integer('max_bids')->default(4);
-            $table->integer('max_rentals')->default(4);
             $table->timestamps();
         });
     }

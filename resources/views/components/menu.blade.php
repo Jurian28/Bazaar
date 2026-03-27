@@ -1,27 +1,116 @@
+@php
+    use App\Models\User;
+    function isRole($role): bool {
+        return $role == auth()->user()?->user_type;
+    }
+@endphp
 
-<header class="text-gray-600 body-font bg-gray-500">
-  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-    <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
-      <a class="mr-5 hover:text-gray-900 text-gray-100">First Link</a>
-      <a class="mr-5 hover:text-gray-900 text-gray-100">Second Link</a>
-      <a class="mr-5 hover:text-gray-900 text-gray-100">Third Link</a>
-      <a class="hover:text-gray-900 text-gray-100">Fourth Link</a>
+<header>
+    <nav class="navbar navbar-expand-lg" style="background-color: #6b7280;"> <!-- bg-gray-500 -->
+        <div class="container">
+            <!-- Navbar links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{company_route('index')}}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{company_route('ads')}}">ads page</a>
+                </li>
+
+{{--                @if(isRole(User::TYPE_USER))--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link text-white" href="{{route('user.favorites') }}">--}}
+{{--                            Favorites--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link text-white" href="{{route('user.history') }}">--}}
+{{--                            Purchases--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link text-white" href="{{route('user.rentals') }}">--}}
+{{--                            My Rentals--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link text-white" href="{{route('user.agenda') }}">--}}
+{{--                            Agenda--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                @endif--}}
+
+
+                @if(isRole(User::TYPE_SELLER))
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{company_route('ad.create')}}">Create ad</a>
+                    </li>
+
+
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link text-white" href="{{route('rental.create') }}">--}}
+{{--                            Create rental--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link text-white" href="{{route('seller.ads') }}">--}}
+{{--                            My Ads--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link text-white" href="{{route('seller.rentals') }}">--}}
+{{--                            My Rentals--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link text-white" href="{{route('seller.agenda') }}">--}}
+{{--                            Agenda--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+                @endif
+
+
+                @if(isRole(User::TYPE_COMPANY))
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href=" {{company_route('ad.create') }} ">
+                            Create ad
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{route('company.showSettings') }}">
+                            Settings
+                        </a>
+                    </li>
+                @endif
+            </ul>
+
+            <!-- Authentication links -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ company_route('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ company_route('register') }}">Register</a>
+                    </li>
+                @endguest
+
+                @auth
+                    <li class="nav-item">
+                        <form method="POST" action="{{ company_route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-link nav-link text-white p-0" style="display:inline;">
+                                Log Out
+                            </button>
+                        </form>
+                    </li>
+                @endauth
+            </ul>
+        </div>
     </nav>
-    <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
-      <nav>
-        @guest
-            <a class="mr-5 hover:text-gray-900 text-gray-100" href="{{company_route('login')}}" :active="request()->is('login')">Login</a>
-            <a class="mr-5 hover:text-gray-900 text-gray-100" href="{{company_route('register')}}" :active="request()->is('register')">Register</a>
-        @endguest
-
-        @auth
-            <form method="POST" action="{{company_route('logout')}}">
-            @csrf
-            <button class="mr-5 hover:text-gray-900 text-gray=100">Log Out</button>
-        </form>
-        @endauth
-    </nav>
-
-    </div>
-  </div>
 </header>
