@@ -48,20 +48,11 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">
-                Create Ad
-            </button>
-
             {{-- RENTAL --}}
             <div id="rentalFields" style="display:none;">
                 <div class="mb-3">
                     <label class="form-label">Price per day (€)</label>
-                    <input type="number" step="0.01" name="rental_price" class="form-control" value="{{ old('rental_price') }}">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Deposit (€)</label>
-                    <input type="number" step="0.01" name="deposit" class="form-control" value="{{ old('deposit') }}">
+                    <input type="number" step="0.01" name="price_per_day" class="form-control" value="{{ old('price_per_day') }}">
                 </div>
 
                 <div class="mb-3">
@@ -79,6 +70,10 @@
                     <input type="date" name="end_date" class="form-control" value="{{ old('end_date') }}">
                 </div>
             </div>
+
+            <button type="submit" class="btn btn-primary">
+                Create Ad
+            </button>
 
         </form>
     </div>

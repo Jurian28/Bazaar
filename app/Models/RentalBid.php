@@ -16,6 +16,7 @@ class RentalBid extends Model
         'user_id',
         'start_date',
         'end_date',
+        'photo_returned',
     ];
 
     protected $casts = [

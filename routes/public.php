@@ -9,7 +9,5 @@ use Illuminate\Support\Facades\Route;
 function getPublicRoutes($suffix = ""): void {
     Route::controller(PublicController::class)->group(function () use ($suffix) {
         Route::get('/', 'index')->name('index' . $suffix);
-
-        Route::get('/ads', 'ads')->name('ads' . $suffix);
     });
 }

@@ -11,12 +11,9 @@ class Rental extends Model
 
     protected $fillable = [
         'advertisement_id',
-        'user_id',
         'start_date',
         'end_date',
         'price_per_day',
-        'deposit',
-        'photo_returned',
         'wear_level',
         'max_rentals',
     ];

@@ -14,10 +14,4 @@ class PublicController extends Controller
         return view('public.index', compact('company', 'components'));
     }
 
-    public function ads($companySlug = null): View {
-        $company = Company::getBySlug($companySlug);
-        $ads = $company->advertisements()->with('user')->get();
-
-        return view('public.ads', compact('company', 'ads'));
-    }
 }

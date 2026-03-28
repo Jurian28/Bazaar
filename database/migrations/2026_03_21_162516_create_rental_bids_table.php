@@ -19,6 +19,8 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
 
+            $table->string('photo_returned')->nullable();
+
             $table->decimal('total_price', 10, 2)->nullable();
 
             $table->timestamps();

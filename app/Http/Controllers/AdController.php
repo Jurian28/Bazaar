@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AdController extends Controller {
+    public function ads($companySlug = null): View {
+        $company = Company::getBySlug($companySlug);
+        $ads = $company->advertisements()->with('user')->get();
+
+        return view('public.ads', compact('company', 'ads'));
+    }
+
     public function showAd($adId): View {
         $ad = Advertisement::where('id', $adId)->first();
 
@@ -54,12 +61,13 @@ class AdController extends Controller {
 
         switch ($request->type) {
             case 'sale':
-                return $this->createSale($request, $ad);
+                $this->createSale($request, $ad);
+                break;
             case 'rental':
-                return $this->createRental($request, $ad);
+                $this->createRental($request, $ad);
+                break;
         }
-
-        abort(404);
+        return $this->ads($companySlug);
     }
 
     private function createSale(Request $request, Advertisement $ad)
@@ -76,14 +84,11 @@ class AdController extends Controller {
             'end_time' => $request->end_time,
             'max_bids' => $request->max_bids ?? 4,
         ]);
-
-        return redirect()->back()->with('success', 'Sale created!');
     }
     private function createRental(Request $request, Advertisement $ad)
     {
         $request->validate([
-            'rental_price' => 'required|numeric|min:0',
-            'deposit' => 'required|numeric|min:0',
+            'price_per_day' => 'required|numeric|min:0',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',
             'max_rentals' => 'nullable|integer|min:1|max:4',
@@ -91,13 +96,10 @@ class AdController extends Controller {
 
         Rental::create([
             'advertisement_id' => $ad->id,
-            'price_per_day' => $request->rental_price,
-            'deposit' => $request->deposit,
+            'price_per_day' => $request->price_per_day,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'max_rentals' => $request->max_rentals ?? 4,
         ]);
-
-        return redirect()->back()->with('success', 'Rental created!');
     }
 }
