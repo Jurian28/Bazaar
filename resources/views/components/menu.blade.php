@@ -6,7 +6,7 @@
 @endphp
 
 <header>
-    <nav class="navbar navbar-expand-lg" style="background-color: #6b7280;"> <!-- bg-gray-500 -->
+    <nav class="navbar navbar-expand-lg" style="background-color: #6b7280;">
         <div class="container">
             <!-- Navbar links -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -28,11 +28,6 @@
 {{--                            Purchases--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link text-white" href="{{route('user.rentals') }}">--}}
-{{--                            My Rentals--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
 
 {{--                    <li class="nav-item">--}}
 {{--                        <a class="nav-link text-white" href="{{route('user.agenda') }}">--}}
@@ -47,22 +42,9 @@
                         <a class="nav-link text-white" href="{{company_route('ad.create')}}">Create ad</a>
                     </li>
 
-
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link text-white" href="{{route('rental.create') }}">--}}
-{{--                            Create rental--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-
 {{--                    <li class="nav-item">--}}
 {{--                        <a class="nav-link text-white" href="{{route('seller.ads') }}">--}}
 {{--                            My Ads--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link text-white" href="{{route('seller.rentals') }}">--}}
-{{--                            My Rentals--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
 
@@ -83,6 +65,12 @@
 
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{route('company.showSettings') }}">
+                            Settings
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{route('company.components') }}">
                             Settings
                         </a>
                     </li>

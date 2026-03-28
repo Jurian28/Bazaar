@@ -21,18 +21,6 @@
                 @error('description') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
 
-            {{-- Company --}}
-            <div class="mb-3">
-                <label class="form-label">Company</label>
-                <select name="company_id" class="form-control">
-                    @foreach($companies as $comp)
-                        <option value="{{ $comp->id }}" {{ old('company_id') == $comp->id ? 'selected' : '' }}>
-                            {{ $comp->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
             {{-- TYPE SELECT --}}
             <div class="mb-3">
                 <label class="form-label">Type</label>

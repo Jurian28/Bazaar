@@ -6,6 +6,7 @@ use App\Models\Advertisement;
 use App\Models\Company;
 use App\Models\Rental;
 use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -19,13 +20,23 @@ class AdController extends Controller {
     }
 
     public function showCreateAd($companySlug = null): View {
-        $company = Company::getBySlug($companySlug);
-        $companies = Company::all();
-        return view('seller.createAd', compact('company', 'companies'));
+        if (auth()->user()->user_type == User::TYPE_COMPANY) {
+            $company = auth()->user()->company;
+        } else {
+            $company = Company::getBySlug($companySlug);
+        }
+
+        return view('seller.createAd', compact('company'));
     }
 
-    public function createAd(Request $request)
+    public function createAd(Request $request, string $companySlug = null)
     {
+        if (auth()->user()->user_type == User::TYPE_COMPANY) {
+            $company = auth()->user()->company;
+        } else {
+            $company = Company::getBySlug($companySlug);
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -36,7 +47,7 @@ class AdController extends Controller {
         $ad = Advertisement::create([
             'title' => $request->title,
             'description' => $request->description,
-            'company_id' => $request->company_id,
+            'company_id' => $company->id,
             'type' => $request->type,
             'user_id' => auth()->id(),
         ]);

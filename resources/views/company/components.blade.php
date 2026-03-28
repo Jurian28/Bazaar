@@ -17,7 +17,7 @@
                 @endif
 
                 @if($component->type === 'image')
-                    <img src="{{ asset('storage/' . $component->data['image']) }}" style="max-height:150px;">
+                    <img src="{{ asset('storage/' . $component->data['image']) }}" style="max-height:150px; width: auto">
                 @endif
 
                 @if($component->type === 'ads')
