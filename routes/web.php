@@ -4,10 +4,12 @@ use App\Http\Controllers\AdController;
 use App\Http\Controllers\RentalBidController;
 use App\Http\Controllers\SaleBidController;
 use Illuminate\Support\Facades\Route;
-require __DIR__.'/auth.php';
-require __DIR__.'/companySettings.php';
-require __DIR__.'/public.php';
-require __DIR__.'/ads.php';
+require __DIR__ . '/routes/auth.php';
+require __DIR__ . '/routes/companySettings.php';
+require __DIR__ . '/routes/public.php';
+require __DIR__ . '/routes/ads.php';
+require __DIR__ . '/routes/history.php';
+require __DIR__ . '/routes/favorites.php';
 
 
 Route::get('/ads/{adId}', [AdController::class, 'showAd'])->name('ads.show');
@@ -26,49 +28,4 @@ Route::prefix('c/{companySlug}')->group(function () {
     getAdsRoutes();
     getAuthRoutes();
     getPublicRoutes();
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Route::get("/", function () {
-//    return view('home/index');
-//});
-
-Route::get('/agenda', function () {
-    return view('agenda/index');
-});
-
-Route::get('/favorites', function () {
-    return view('favorites/index');
-});
-
-Route::get('/history', function () {
-    return view('history/index');
-});
-
-Route::controller(AdminController::class)->group(function () {
-    Route::get('/admin', 'index');
 });

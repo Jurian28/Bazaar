@@ -1,4 +1,4 @@
-@props(['ad', 'company'])
+@props(['ad'])
 
 <div class="col-md-6 col-lg-4 mb-4">
     <div class="card h-100 shadow-sm">
@@ -8,7 +8,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Start price:</strong> {{ $ad->sale->start_price }}</li>
             <li class="list-group-item"><strong>End time:</strong> {{ $ad->sale->end_time }}</li>
-            <li class="list-group-item"><strong>Company:</strong> {{ $company->name }}</li>
+            <li class="list-group-item"><strong>Company:</strong> {{ $ad->company->name }}</li>
             <li class="list-group-item"><strong>User:</strong> {{ $ad->user->name }}</li>
         </ul>
         <div class="card-body">
@@ -16,5 +16,6 @@
                 View Details
             </a>
         </div>
+        <x-likeButton :ad="$ad"></x-likeButton>
     </div>
 </div>

@@ -17,24 +17,24 @@
                     <a class="nav-link text-white" href="{{company_route('ads')}}">ads page</a>
                 </li>
 
-{{--                @if(isRole(User::TYPE_USER))--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link text-white" href="{{route('user.favorites') }}">--}}
-{{--                            Favorites--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link text-white" href="{{route('user.history') }}">--}}
-{{--                            Purchases--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                @if(isRole(User::TYPE_USER))
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{route('favorites') }}">
+                            Favorites
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{route('user.saleHistory') }}">
+                            Purchased
+                        </a>
+                    </li>
 
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link text-white" href="{{route('user.agenda') }}">--}}
-{{--                            Agenda--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                @endif--}}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{route('user.rentalHistory') }}">
+                            Rented
+                        </a>
+                    </li>
+                @endif
 
 
                 @if(isRole(User::TYPE_SELLER))
@@ -42,17 +42,17 @@
                         <a class="nav-link text-white" href="{{company_route('ad.create')}}">Create ad</a>
                     </li>
 
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link text-white" href="{{route('seller.ads') }}">--}}
-{{--                            My Ads--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{route('seller.saleHistory') }}">
+                            My Ads
+                        </a>
+                    </li>
 
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link text-white" href="{{route('seller.agenda') }}">--}}
-{{--                            Agenda--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{route('seller.rentalOverview') }}">
+                            Agenda
+                        </a>
+                    </li>
                 @endif
 
 
@@ -71,7 +71,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{route('company.components') }}">
-                            Settings
+                            Components
                         </a>
                     </li>
                 @endif

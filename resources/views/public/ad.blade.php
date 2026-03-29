@@ -1,3 +1,4 @@
+@php use App\Models\User; @endphp
 @extends('components.layout')
 @section('title', $ad->title)
 
@@ -57,19 +58,23 @@
                     Back to List
                 </a>
 
-                @switch($ad->type)
-                    @case('sale')
-                        <a href="{{ route('ads.bid.form', $ad->id) }}" class="btn btn-primary btn-sm">
-                            Place Bid
-                        </a>
-                        @break
+                @if(auth()?->user()?->user_type === User::TYPE_USER)
+                    @switch($ad->type)
+                        @case('sale')
+                            <a href="{{ route('ads.bid.form', $ad->id) }}" class="btn btn-primary btn-sm">
+                                Place Bid
+                            </a>
+                            @break
 
-                    @case('rental')
-                        <a href="{{ route('ads.rent.form', $ad->id) }}" class="btn btn-primary btn-sm">
-                            Rent
-                        </a>
-                        @break
-                @endswitch
+                        @case('rental')
+                            <a href="{{ route('ads.rent.form', $ad->id) }}" class="btn btn-primary btn-sm">
+                                Rent
+                            </a>
+                            @break
+                    @endswitch
+
+                    <x-likeButton :ad="$ad"></x-likeButton>
+                @endif
             </div>
         </div>
     </div>

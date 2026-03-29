@@ -131,4 +131,15 @@ class CompanyController extends Controller
 
         return back();
     }
+
+
+    public function delete(Request $request): RedirectResponse {
+        $validated = $request->validate([
+            'id' => ['required', 'integer']
+        ]);
+
+        CompanyComponent::where('id', $validated['id'])->delete();
+
+        return back();
+    }
 }

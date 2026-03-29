@@ -24,7 +24,7 @@
                     <p>Ads block ({{ $component->data['limit'] ?? 6 }} items)</p>
                 @endif
 
-                <!-- ORDER BUTTONS -->
+                <!-- ORDER AND DELETE BUTTONS -->
                 <div class="mt-2">
                     <form method="POST" action="{{ route('company.components.changeOrder', ['direction' => 'up']) }}" style="display:inline;">
                         @csrf
@@ -36,6 +36,13 @@
                         @csrf
                         <input type="hidden" name="id" value="{{ $component->id }}">
                         <button class="btn btn-sm btn-secondary">⬇️</button>
+                    </form>
+
+
+                    <form method="POST" action="{{ route('company.components.delete') }}" style="display:inline;">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $component->id }}">
+                        <button class="btn btn-sm btn-secondary">❌</button>
                     </form>
                 </div>
 

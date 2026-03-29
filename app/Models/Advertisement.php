@@ -33,6 +33,19 @@ class Advertisement extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function saleBids() {
+        return $this->hasMany(SaleBid::class);
+    }
+
+    public function rentalBids() {
+        return $this->hasMany(RentalBid::class);
+    }
+
+    public function favoritedBy() {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
+
+
 
     public function isRental() {
         return $this->type == 'rental';

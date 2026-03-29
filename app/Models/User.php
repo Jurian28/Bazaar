@@ -61,4 +61,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Advertisement::class);
     }
+
+
+    public function SaleBids()
+    {
+        return $this->hasMany(SaleBid::class);
+    }
+
+
+    public function RentalBids()
+    {
+        return $this->hasMany(RentalBid::class);
+    }
+
+    public function favorites() {
+        return $this->belongsToMany(Advertisement::class, 'favorites');
+    }
 }

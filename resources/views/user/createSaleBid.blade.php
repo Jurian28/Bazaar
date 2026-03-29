@@ -8,9 +8,8 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">{{ $ad->title }}</h5>
-                <p class="card-text">{{ $ad->description }}</p>
                 <p><strong>Start price: €{{ number_format($ad->sale->start_price, 2) }}</strong></p>
-                <p class="card-text">{{ $ad->end_time }}</p>
+                <p class="card-text">{{ $ad->sale->end_time }}</p>
             </div>
         </div>
 

@@ -9,9 +9,9 @@
             <div class="row">
                 @foreach($ads as $ad)
                     @if ($ad->type == 'sale')
-                        <x-ad.sale :ad="$ad" :company="$company"></x-ad.sale>
+                        <x-ad.sale :ad="$ad"></x-ad.sale>
                     @elseif($ad->type == 'rental')
-                        <x-ad.rental :ad="$ad" :company="$company"></x-ad.rental>
+                        <x-ad.rental :ad="$ad"></x-ad.rental>
                     @endif
                 @endforeach
             </div>

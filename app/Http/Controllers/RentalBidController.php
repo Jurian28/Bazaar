@@ -16,6 +16,7 @@ class RentalBidController extends Controller
         }
 
         $company = Company::find($ad->company_id);
+        $ad = $ad->load('rental');
 
         return view('user.createRentalBid', compact('ad', 'company'));
     }

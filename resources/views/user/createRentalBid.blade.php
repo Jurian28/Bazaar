@@ -8,10 +8,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">{{ $ad->title }}</h5>
-                <p class="card-text">{{ $ad->description }}</p>
-
                 <p><strong>Price per day: €{{ number_format($ad->rental->price_per_day, 2) }}</strong></p>
-                <p><strong>Deposit: €{{ number_format($ad->rental->deposit, 2) }}</strong></p>
             </div>
         </div>
 

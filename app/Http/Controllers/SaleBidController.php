@@ -13,9 +13,8 @@ class SaleBidController extends Controller
     {
         if (!$ad->isSale()) abort(404);
 
-        $ad = $ad->with('sale')->firstOrFail();
+        $ad = $ad->load('sale');
         $company = Company::find($ad->company_id);
-//        dd($company, $ad, $ad->sale);
 
         return view('user.createSaleBid', compact('ad', 'company'));
     }
