@@ -5,25 +5,37 @@ namespace App\Http\Controllers;
 use App\Models\Advertisement;
 use App\Models\Company;
 use App\Models\Rental;
+use App\Models\Review;
 use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AdController extends Controller {
-    public function ads($companySlug = null): View {
+    public function ads(Request $request, $companySlug = null): View {
         $company = Company::getBySlug($companySlug);
-        $ads = $company->advertisements()->with('user')->get();
+
+        $adsQuery = $company->advertisements()->with(['sale', 'rental']);
+        $ads = $this->getAdsWithFilter($adsQuery, $request);
+
 
         return view('public.ads', compact('company', 'ads'));
     }
 
-    public function showAd($adId): View {
+    public function showAd(Request $request, $adId): View {
         $ad = Advertisement::where('id', $adId)->first();
 
         $company = $ad->company;
 
-        return view('public.ad', compact('company', 'ad'));
+        $query = $ad->reviews()->latest();
+
+        if ($request->filled('rating')) {
+            $query->where('rating', $request->rating);
+        }
+
+        $reviews = $query->paginate(5)->withQueryString();
+
+        return view('public.ad', compact('company', 'ad', 'reviews'));
     }
 
     public function showCreateAd($companySlug = null): View {
@@ -101,5 +113,60 @@ class AdController extends Controller {
             'end_date' => $request->end_date,
             'max_rentals' => $request->max_rentals ?? 4,
         ]);
+    }
+
+
+    public function review(Request $request, $adId) {
+        $validated = $request->validate([
+            'rating' => 'string',
+            'comment' => 'nullable|string'
+        ]);
+
+        if (!($user = auth()->user())) {
+            abort(403);
+        }
+
+        Review::create([
+            'user_id' => $user->id,
+            'advertisement_id' => $adId,
+            'rating' => $validated['rating'],
+            'comment' => $validated['comment'],
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function getAdsWithFilter($AdSstartQuery, Request $request) {
+        $query = $AdSstartQuery;
+
+        $query->when($request->filled('type'), function ($q) use ($request) {
+            $q->where('type', $request->type);
+        });
+        $query->when($request->filled('min_price'), function ($q) use ($request) {
+            $q->whereHas('sale', function ($q2) use ($request) {
+                $q2->where('start_price', '>=', $request->min_price);
+            });
+        });
+        $query->when($request->filled('max_bids'), function ($q) use ($request) {
+            $q->whereHas('sale', function ($q2) use ($request) {
+                $q2->where('max_bids', '<=', $request->max_bids);
+            });
+        });
+        $query->when($request->filled('price_per_day'), function ($q) use ($request) {
+            $q->whereHas('rental', function ($q2) use ($request) {
+                $q2->where('price_per_day', '<=', $request->price_per_day);
+            });
+        });
+        $query->when($request->filled('wear_level'), function ($q) use ($request) {
+            $q->whereHas('rental', function ($q2) use ($request) {
+                $q2->where('wear_level', $request->wear_level);
+            });
+        });
+        $query->when($request->filled('search'), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->search . '%');
+        });
+        $ads = $query->paginate(10)->withQueryString();
+
+        return $ads;
     }
 }

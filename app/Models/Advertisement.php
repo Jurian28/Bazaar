@@ -45,6 +45,9 @@ class Advertisement extends Model
         return $this->belongsToMany(User::class, 'favorites');
     }
 
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
 
 
     public function isRental() {

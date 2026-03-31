@@ -1,78 +1,69 @@
+@props(['company'])
 @php
     use App\Models\User;
+
     function isRole($role): bool {
         return $role == auth()->user()?->user_type;
     }
+
+    $primaryColor = $company->primary_color ?? '#6b7280';
+    $secondaryColor = $company->secondary_color ?? '#ffffff';
+    $fontFamily = $company->font_family ?? 'sans-serif';
 @endphp
 
 <header>
-    <nav class="navbar navbar-expand-lg" style="background-color: #6b7280;">
+    <nav class="navbar navbar-expand-lg"
+         style="background-color: {{ $primaryColor }}; font-family: {{ $fontFamily }};">
         <div class="container">
+            <!-- Logo -->
+            @if($company->logo_url)
+                <a class="navbar-brand" href="{{ company_route('index') }}">
+                    <img src="{{ $company->logo_url }}" alt="{{ $company->name }}" height="40">
+                </a>
+            @endif
+
             <!-- Navbar links -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{company_route('index')}}">Home</a>
+                    <a class="nav-link" href="{{ company_route('index') }}" style="color: {{ $secondaryColor }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{company_route('ads')}}">ads page</a>
+                    <a class="nav-link" href="{{ company_route('ads') }}" style="color: {{ $secondaryColor }}">Ads Page</a>
                 </li>
 
                 @if(isRole(User::TYPE_USER))
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{route('favorites') }}">
-                            Favorites
-                        </a>
+                        <a class="nav-link" href="{{ route('favorites') }}" style="color: {{ $secondaryColor }}">Favorites</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{route('user.saleHistory') }}">
-                            Purchased
-                        </a>
+                        <a class="nav-link" href="{{ route('user.saleHistory') }}" style="color: {{ $secondaryColor }}">Purchased</a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{route('user.rentalHistory') }}">
-                            Rented
-                        </a>
+                        <a class="nav-link" href="{{ route('user.rentalHistory') }}" style="color: {{ $secondaryColor }}">Rented</a>
                     </li>
                 @endif
-
 
                 @if(isRole(User::TYPE_SELLER))
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{company_route('ad.create')}}">Create ad</a>
+                        <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">Create Ad</a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{route('seller.saleHistory') }}">
-                            My Ads
-                        </a>
+                        <a class="nav-link" href="{{ route('seller.saleHistory') }}" style="color: {{ $secondaryColor }}">My Ads</a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{route('seller.rentalOverview') }}">
-                            Agenda
-                        </a>
+                        <a class="nav-link" href="{{ route('seller.rentalOverview') }}" style="color: {{ $secondaryColor }}">Agenda</a>
                     </li>
                 @endif
 
-
                 @if(isRole(User::TYPE_COMPANY))
                     <li class="nav-item">
-                        <a class="nav-link text-white" href=" {{company_route('ad.create') }} ">
-                            Create ad
-                        </a>
+                        <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">Create Ad</a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{route('company.showSettings') }}">
-                            Settings
-                        </a>
+                        <a class="nav-link" href="{{ route('company.showSettings') }}" style="color: {{ $secondaryColor }}">Settings</a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{route('company.components') }}">
-                            Components
-                        </a>
+                        <a class="nav-link" href="{{ route('company.components') }}" style="color: {{ $secondaryColor }}">Components</a>
                     </li>
                 @endif
             </ul>
@@ -81,10 +72,10 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ company_route('login') }}">Login</a>
+                        <a class="nav-link" href="{{ company_route('login') }}" style="color: {{ $secondaryColor }}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ company_route('register') }}">Register</a>
+                        <a class="nav-link" href="{{ company_route('register') }}" style="color: {{ $secondaryColor }}">Register</a>
                     </li>
                 @endguest
 
@@ -92,7 +83,8 @@
                     <li class="nav-item">
                         <form method="POST" action="{{ company_route('logout') }}">
                             @csrf
-                            <button type="submit" class="btn btn-link nav-link text-white p-0" style="display:inline;">
+                            <button type="submit" class="btn btn-link nav-link p-0"
+                                    style="color: {{ $secondaryColor }}; display:inline;">
                                 Log Out
                             </button>
                         </form>

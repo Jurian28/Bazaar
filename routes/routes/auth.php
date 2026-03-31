@@ -5,11 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 function getAuthRoutes($suffix = ""): void {
     Route::controller(AuthController::class)->group(function () use ($suffix) {
-        Route::get('/login', 'showLoginForm')->name('login' . $suffix);
-        Route::post('/login', 'login')->name('login' . $suffix);
-        Route::post('/logout', 'logout')->name('logout' . $suffix);
+        Route::get('/login', 'showLoginForm')->name('login' . $suffix)->middleware('guest');
+        Route::post('/login', 'login')->name('login' . $suffix)->middleware('guest');
+        Route::post('/logout', 'logout')->name('logout' . $suffix)->middleware('auth');
 
-        Route::get('/register', 'showRegisterForm')->name('register' . $suffix);
-        Route::post('/register', 'register')->name('register' . $suffix);
+        Route::get('/register', 'showRegisterForm')->name('register' . $suffix)->middleware('guest');
+        Route::post('/register', 'register')->name('register' . $suffix)->middleware('guest');
     });
 }

@@ -25,9 +25,14 @@ class FavoriteController extends Controller {
     }
 
 
-    public function favorites() {
+    public function favorites(Request $request): View {
         $user = auth()->user();
-        $ads = $user->favorites()->get();
+
+        $adQuery = $user->favorites()->latest();
+
+        $adController = new AdController();
+        $ads = $adController->getAdsWithFilter($adQuery, $request);
+
         $company = Company::getDefaultCompany();
 
         return view('user.favorites', compact('ads', 'company'));

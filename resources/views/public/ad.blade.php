@@ -77,5 +77,84 @@
                 @endif
             </div>
         </div>
+        <div class="card shadow-sm p-3 mb-3">
+
+            @if(auth()?->user()?->user_type == User::TYPE_USER)
+            <h5 class="mb-3">Leave a Review</h5>
+
+
+                <form method="POST" action="{{ route('ads.review', ['adId' => $ad->id]) }}">
+                    @csrf
+
+                    <div class="mb-2">
+                        <label for="rating" class="form-label">Rating (1–5)</label>
+                        <input
+                            type="number"
+                            name="rating"
+                            id="rating"
+                            class="form-control"
+                            min="1"
+                            max="5"
+                            required
+                        >
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="comment" class="form-label">Comment</label>
+                        <textarea
+                            name="comment"
+                            id="comment"
+                            class="form-control"
+                            rows="3"
+                            placeholder="Write your review..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        Submit Review
+                    </button>
+                </form>
+
+            <hr>
+
+            @endif
+            <h5>Reviews</h5>
+            <form method="GET" class="mb-3">
+                <label for="rating">Filter by rating:</label>
+                <select name="rating" id="rating" class="form-select w-auto d-inline">
+                    <option value="">All</option>
+                    <option value="5">⭐ 5</option>
+                    <option value="4">⭐ 4</option>
+                    <option value="3">⭐ 3</option>
+                    <option value="2">⭐ 2</option>
+                    <option value="1">⭐ 1</option>
+                </select>
+
+                <button class="btn btn-sm btn-primary">Filter</button>
+            </form>
+
+
+            @forelse($reviews as $review)
+                <div class="border rounded p-2 mb-2">
+                    <strong>⭐ {{ $review->rating }}/5</strong>
+                    <p class="mb-1">{{ $review->comment }}</p>
+                    <small class="text-muted">
+                        Posted {{ $review->created_at->diffForHumans() }}
+                    </small>
+                </div>
+            @empty
+                <p class="text-muted">No reviews yet.</p>
+            @endforelse
+
+
+            <div class="mt-3">
+                {{ $reviews->links() }}
+            </div>
+        </div>
     </div>
 @endsection
+
+
+
+

@@ -15,7 +15,7 @@
             <a href="{{ route('ads.show', ['adId' => $ad->id]) }}" class="btn btn-primary btn-sm">
                 View Details
             </a>
+            <x-likeButton :ad="$ad"></x-likeButton>
         </div>
-        <x-likeButton :ad="$ad"></x-likeButton>
     </div>
 </div>
