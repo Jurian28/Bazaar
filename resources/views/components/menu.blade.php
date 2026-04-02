@@ -28,7 +28,7 @@
                     <a class="nav-link" href="{{ company_route('index') }}" style="color: {{ $secondaryColor }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ company_route('ads') }}" style="color: {{ $secondaryColor }}">Ads Page</a>
+                    <a class="nav-link" href="{{ company_route('ads') }}" style="color: {{ $secondaryColor }}">{{__('ads')}}</a>
                 </li>
 
                 @if(isRole(User::TYPE_USER))
