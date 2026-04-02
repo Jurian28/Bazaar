@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>{{ __('Register') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -12,17 +12,17 @@
     @csrf
 
     <h1 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
-        Register to {{ $company->name }}
+        {{ __('Register to') }} {{ $company->name }}
     </h1>
 
     <!-- Name -->
     <div class="mb-4">
-        <label for="name" class="block text-sm text-gray-600 mb-1">Name</label>
+        <label for="name" class="block text-sm text-gray-600 mb-1">{{ __('Name') }}</label>
         <input
             type="text"
             name="name"
             id="name"
-            placeholder="Your name"
+            placeholder="{{ __('Your name') }}"
             class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
         />
@@ -33,12 +33,12 @@
 
     <!-- Email -->
     <div class="mb-4">
-        <label for="email" class="block text-sm text-gray-600 mb-1">Email</label>
+        <label for="email" class="block text-sm text-gray-600 mb-1">{{ __('Email') }}</label>
         <input
             type="email"
             name="email"
             id="email"
-            placeholder="name@email.com"
+            placeholder="{{ __('name@email.com') }}"
             class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
         />
@@ -49,7 +49,7 @@
 
     <!-- Password -->
     <div class="mb-4">
-        <label for="password" class="block text-sm text-gray-600 mb-1">Password</label>
+        <label for="password" class="block text-sm text-gray-600 mb-1">{{ __('Password') }}</label>
         <input
             type="password"
             name="password"
@@ -64,9 +64,7 @@
 
     <!-- Password confirmation -->
     <div class="mb-4">
-        <label for="password_confirmation" class="block text-sm text-gray-600 mb-1">
-            Confirm password
-        </label>
+        <label for="password_confirmation" class="block text-sm text-gray-600 mb-1">{{ __('Confirm password') }}</label>
         <input
             type="password"
             name="password_confirmation"
@@ -81,17 +79,15 @@
 
     <!-- User type -->
     <div class="mb-6">
-        <label for="user_type" class="block text-sm text-gray-600 mb-1">
-            User type
-        </label>
+        <label for="user_type" class="block text-sm text-gray-600 mb-1">{{ __('User type') }}</label>
         <select
             name="user_type"
             id="user_type"
             class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-            <option value="{{ User::TYPE_USER }}">Gebruiker</option>
-            <option value="{{ User::TYPE_SELLER }}">Particuliere adverteerder</option>
-            <option value="{{ User::TYPE_COMPANY }}">Zakelijke adverteerder</option>
+            <option value="{{ User::TYPE_USER }}">{{ __('User') }}</option>
+            <option value="{{ User::TYPE_SELLER }}">{{ __('Individual Advertiser') }}</option>
+            <option value="{{ User::TYPE_COMPANY }}">{{ __('Business Advertiser') }}</option>
         </select>
         @error('user_type')
         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
@@ -100,15 +96,13 @@
 
     <!-- Actions -->
     <div class="flex items-center justify-between">
-        <a href="{{ url('/') }}" class="text-sm text-gray-500 hover:text-gray-700">
-            Cancel
-        </a>
+        <a href="{{ url('/') }}" class="text-sm text-gray-500 hover:text-gray-700">{{ __('Cancel') }}</a>
 
         <button
             type="submit"
             class="bg-blue-600 text-white text-sm font-medium px-5 py-2 rounded-lg hover:bg-blue-700 transition"
         >
-            Register
+            {{ __('Register') }}
         </button>
     </div>
 </form>

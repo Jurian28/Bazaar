@@ -1,18 +1,18 @@
 @extends('components.layout')
-@section('title', 'Ad Page')
+@section('title', __('Ad Page'))
 
 @section('content')
     <div class="container my-5">
-        <h1 class="mb-4">My advertisements</h1>
+        <h1 class="mb-4">{{ __('My advertisements') }}</h1>
 
         @if($ads->count())
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border">
                     <thead>
                     <tr class="bg-gray-100 text-left">
-                        <th class="py-2 px-4 border-b">Title</th>
-                        <th class="py-2 px-4 border-b">End Date</th>
-                        <th class="py-2 px-4 border-b">Highest Offer</th>
+                        <th class="py-2 px-4 border-b">{{ __('Title') }}</th>
+                        <th class="py-2 px-4 border-b">{{ __('End Date') }}</th>
+                        <th class="py-2 px-4 border-b">{{ __('Highest Offer') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -25,7 +25,7 @@
                             <tr>
                                 <td class="py-2 px-4 border-b">{{ $ad->title }}</td>
                                 <td class="py-2 px-4 border-b">{{ \Carbon\Carbon::parse($ad->sale->end_date)->format('d M Y H:i') }}</td>
-                                <td class="py-2 px-4 border-b">{{ $highestOffer ?? 'N/A'  }}</td>
+                                <td class="py-2 px-4 border-b">{{ $highestOffer ?? __('N/A')  }}</td>
                             </tr>
                         @endif
                     @endforeach
@@ -37,7 +37,7 @@
                 {{ $ads->links() }}
             </div>
         @else
-            <p>No sales found.</p>
+            <p>{{ __('No sales found.') }}</p>
         @endif
     </div>
 @endsection

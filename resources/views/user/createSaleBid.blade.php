@@ -1,14 +1,16 @@
 @extends('components.layout')
-@section('title', 'Make bid')
+@section('title', __('Make bid'))
 
 @section('content')
     <div class="container mt-5">
-        <h2 class="mb-4">Buy: {{ $ad->title }}</h2>
+        <h2 class="mb-4">{{ __('Buy') }}: {{ $ad->title }}</h2>
 
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">{{ $ad->title }}</h5>
-                <p><strong>Start price: €{{ number_format($ad->sale->start_price, 2) }}</strong></p>
+                <p>
+                    <strong>{{ __('Start price') }}: €{{ number_format($ad->sale->start_price, 2) }}</strong>
+                </p>
                 <p class="card-text">{{ $ad->sale->end_time }}</p>
             </div>
         </div>
@@ -17,7 +19,7 @@
             @csrf
 
             <div class="form-check mb-3">
-                <label for="price"></label>
+                <label for="price">{{ __('Your bid') }}</label>
                 <input
                     type="number"
                     name="price"
@@ -27,8 +29,8 @@
                 >
             </div>
 
-            <button type="submit" class="btn btn-success">Buy Now</button>
-            <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-success">{{ __('Buy Now') }}</button>
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
         </form>
     </div>
 @endsection

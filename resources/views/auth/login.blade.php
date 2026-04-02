@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>{{ __('Login') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -10,18 +10,18 @@
     @csrf
 
     <h1 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
-        Login to {{ $company->name }}
+        {{ __('Login to') }} {{ $company->name }}
     </h1>
 
     <!-- Email -->
     <div class="mb-4">
-        <label for="email" class="block text-sm text-gray-600 mb-1">Email</label>
+        <label for="email" class="block text-sm text-gray-600 mb-1">{{ __('Email') }}</label>
         <input
             type="email"
             name="email"
             id="email"
             :value="old('email')"
-            placeholder="name@email.com"
+            placeholder="{{ __('name@email.com') }}"
             class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
         />
@@ -32,7 +32,7 @@
 
     <!-- Password -->
     <div class="mb-6">
-        <label for="password" class="block text-sm text-gray-600 mb-1">Password</label>
+        <label for="password" class="block text-sm text-gray-600 mb-1">{{ __('Password') }}</label>
         <input
             type="password"
             name="password"
@@ -48,14 +48,14 @@
     <!-- Actions -->
     <div class="flex items-center justify-between">
         <a href="{{ url('/') }}" class="text-sm text-gray-500 hover:text-gray-700">
-            Cancel
+            {{ __('Cancel') }}
         </a>
 
         <button
             type="submit"
             class="bg-blue-600 text-white text-sm font-medium px-5 py-2 rounded-lg hover:bg-blue-700 transition"
         >
-            Login
+            {{ __('Login') }}
         </button>
     </div>
 </form>

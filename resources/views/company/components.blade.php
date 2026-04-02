@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-5">
 
-        <h2>Homepage Builder</h2>
+        <h2>{{ __('Homepage Builder') }}</h2>
 
         <!-- COMPONENT LIST -->
         @foreach($components as $component)
@@ -17,11 +17,11 @@
                 @endif
 
                 @if($component->type === 'image')
-                    <img src="{{ asset('storage/' . $component->data['image']) }}" style="max-height:150px; width: auto">
+                    <img src="{{ asset('storage/' . $component->data['image']) }}" style="max-height:150px; width: auto" alt="{{ __('Image Preview') }}">
                 @endif
 
                 @if($component->type === 'ads')
-                    <p>Ads block ({{ $component->data['limit'] ?? 6 }} items)</p>
+                    <p>{{ __('Ads block (:count items)', ['count' => $component->data['limit'] ?? 6]) }}</p>
                 @endif
 
                 <!-- ORDER AND DELETE BUTTONS -->
@@ -38,7 +38,6 @@
                         <button class="btn btn-sm btn-secondary">⬇️</button>
                     </form>
 
-
                     <form method="POST" action="{{ route('company.components.delete') }}" style="display:inline;">
                         @csrf
                         <input type="hidden" name="id" value="{{ $component->id }}">
@@ -49,32 +48,31 @@
             </div>
         @endforeach
 
-
         <!-- ADD BUTTONS -->
         <div class="mt-5">
-            <h4>Add component</h4>
+            <h4>{{ __('Add component') }}</h4>
 
             <!-- TEXT -->
             <form method="POST" action="{{ route('company.components.addText') }}" class="mb-3">
                 @csrf
-                <input type="text" name="title" placeholder="Title" class="form-control mb-2">
-                <textarea name="text" placeholder="Text" class="form-control mb-2"></textarea>
-                <button class="btn btn-primary">Add Text</button>
+                <input type="text" name="title" placeholder="{{ __('Title') }}" class="form-control mb-2">
+                <textarea name="text" placeholder="{{ __('Text') }}" class="form-control mb-2"></textarea>
+                <button class="btn btn-primary">{{ __('Add Text') }}</button>
             </form>
 
             <!-- IMAGE -->
             <form method="POST" action="{{ route('company.components.addImage') }}" enctype="multipart/form-data" class="mb-3">
                 @csrf
                 <input type="file" name="image" class="form-control mb-2">
-                <button class="btn btn-primary">Add Image</button>
+                <button class="btn btn-primary">{{ __('Add Image') }}</button>
             </form>
 
             <!-- ADS -->
             <form method="POST" action="{{ route('company.components.addAd') }}">
                 @csrf
-                <input type="text" name="title" placeholder="Title" class="form-control mb-2">
-                <input type="number" name="limit" placeholder="Limit" class="form-control mb-2">
-                <button class="btn btn-primary">Add Ads</button>
+                <input type="text" name="title" placeholder="{{ __('Title') }}" class="form-control mb-2">
+                <input type="number" name="limit" placeholder="{{ __('Limit') }}" class="form-control mb-2">
+                <button class="btn btn-primary">{{ __('Add Ads') }}</button>
             </form>
 
         </div>

@@ -51,6 +51,10 @@ return [
     | the application so that it's available within Artisan commands.
     |
     */
+    'available_locales' => [
+        'en' => 'English',
+        'nl' => 'Nederlands',
+    ],
 
     'url' => env('APP_URL', 'http://localhost'),
 

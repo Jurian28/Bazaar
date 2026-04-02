@@ -13,10 +13,10 @@ Route::post('/ads/{adId}/review', [AdController::class, 'review'])->name('ads.re
 Route::controller(RentalBidController::class)
     ->middleware(['role:user'])
     ->group(function () {
-    Route::get('/ads/{ad}/rent',  'create')->name('ads.rent.form');
-    Route::post('/ads/{ad}/rent',  'store')->name('ads.rent');
+        Route::get('/ads/{ad}/rent',  'create')->name('ads.rent.form');
+        Route::post('/ads/{ad}/rent',  'store')->name('ads.rent');
 
-});
+    });
 
 Route::controller(SaleBidController::class)
     ->middleware(['role:user'])
@@ -25,10 +25,14 @@ Route::controller(SaleBidController::class)
         Route::post('/ads/{ad}/bid',  'store')->name('ads.bid');
     });
 
-function getAdsRoutes($suffix = ""): void {
-    Route::controller(AdController::class)->group(function () use ($suffix) {
-        Route::get('/ads', 'ads')->name('ads' . $suffix);
-        Route::get('/ad/create', 'showCreateAd')->name('ad.create' . $suffix)->middleware('role:seller,company');
-        Route::post('/ad/create', 'createAd')->name('ad.create' . $suffix)->middleware('role:seller,company');
-    });
+
+if (!function_exists('getAdsRoutes')) {
+    function getAdsRoutes($suffix = ""): void
+    {
+        Route::controller(AdController::class)->group(function () use ($suffix) {
+            Route::get('/ads', 'ads')->name('ads' . $suffix);
+            Route::get('/ad/create', 'showCreateAd')->name('ad.create' . $suffix)->middleware('role:seller,company');
+            Route::post('/ad/create', 'createAd')->name('ad.create' . $suffix)->middleware('role:seller,company');
+        });
+    }
 }

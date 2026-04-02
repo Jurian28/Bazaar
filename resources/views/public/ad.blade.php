@@ -3,7 +3,7 @@
 @section('title', $ad->title)
 
 @section('content')
-    <div class="container my-5">
+    <img class="container my-5">
         <div class="card shadow-sm">
             <div class="card-body">
                 <h2 class="card-title">{{ $ad->title }}</h2>
@@ -12,42 +12,37 @@
 
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <strong>Type:</strong> {{ ucfirst($ad->type) }}
+                    <strong>{{ __('Type') }}:</strong> {{ ucfirst($ad->type) }}
                 </li>
 
                 <li class="list-group-item">
-                    <strong>Company:</strong> {{ $ad->company?->name ?? 'N/A' }}
+                    <strong>{{ __('Company') }}:</strong> {{ $ad->company?->name ?? __('N/A') }}
                 </li>
 
                 <li class="list-group-item">
-                    <strong>User:</strong> {{ $ad->user?->name ?? 'N/A' }}
+                    <strong>{{ __('User') }}:</strong> {{ $ad->user?->name ?? __('N/A') }}
                 </li>
 
                 @if($ad->isSale())
                     <li class="list-group-item">
-                        <strong>Start price:</strong>
+                        <strong>{{ __('Start price') }}:</strong>
                         €{{ number_format($ad->sale->start_price, 2) }}
                     </li>
 
                     <li class="list-group-item">
-                        <strong>End time:</strong>
+                        <strong>{{ __('End time') }}:</strong>
                         {{ $ad->sale->end_time }}
                     </li>
                 @endif
 
                 @if($ad->isRental())
                     <li class="list-group-item">
-                        <strong>Price per day:</strong>
+                        <strong>{{ __('Price per day') }}:</strong>
                         €{{ number_format($ad->rental->price_per_day, 2) }}
                     </li>
 
                     <li class="list-group-item">
-                        <strong>Deposit:</strong>
-                        €{{ number_format($ad->rental->deposit, 2) }}
-                    </li>
-
-                    <li class="list-group-item">
-                        <strong>Max rentals:</strong>
+                        <strong>{{ __('Max rentals') }}:</strong>
                         {{ $ad->rental->max_rentals }}
                     </li>
                 @endif
@@ -55,20 +50,20 @@
 
             <div class="card-body">
                 <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">
-                    Back to List
+                    {{ __('Back to List') }}
                 </a>
 
                 @if(auth()?->user()?->user_type === User::TYPE_USER)
                     @switch($ad->type)
                         @case('sale')
                             <a href="{{ route('ads.bid.form', $ad->id) }}" class="btn btn-primary btn-sm">
-                                Place Bid
+                                {{ __('Place Bid') }}
                             </a>
                             @break
 
                         @case('rental')
                             <a href="{{ route('ads.rent.form', $ad->id) }}" class="btn btn-primary btn-sm">
-                                Rent
+                                {{ __('Rent') }}
                             </a>
                             @break
                     @endswitch
@@ -77,17 +72,19 @@
                 @endif
             </div>
         </div>
+
+
+
         <div class="card shadow-sm p-3 mb-3">
 
             @if(auth()?->user()?->user_type == User::TYPE_USER)
-            <h5 class="mb-3">Leave a Review</h5>
-
+                <h5 class="mb-3">{{ __('Leave a Review') }}</h5>
 
                 <form method="POST" action="{{ route('ads.review', ['adId' => $ad->id]) }}">
                     @csrf
 
                     <div class="mb-2">
-                        <label for="rating" class="form-label">Rating (1–5)</label>
+                        <label for="rating" class="form-label">{{ __('Rating (1–5)') }}</label>
                         <input
                             type="number"
                             name="rating"
@@ -100,30 +97,31 @@
                     </div>
 
                     <div class="mb-2">
-                        <label for="comment" class="form-label">Comment</label>
+                        <label for="comment" class="form-label">{{ __('Comment') }}</label>
                         <textarea
                             name="comment"
                             id="comment"
                             class="form-control"
                             rows="3"
-                            placeholder="Write your review..."
+                            placeholder="{{ __('Write your review...') }}"
                             required
                         ></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-sm">
-                        Submit Review
+                        {{ __('Submit Review') }}
                     </button>
                 </form>
 
-            <hr>
-
+                <hr>
             @endif
-            <h5>Reviews</h5>
+
+            <h5>{{ __('Reviews') }}</h5>
+
             <form method="GET" class="mb-3">
-                <label for="rating">Filter by rating:</label>
+                <label for="rating">{{ __('Filter by rating:') }}</label>
                 <select name="rating" id="rating" class="form-select w-auto d-inline">
-                    <option value="">All</option>
+                    <option value="">{{ __('All') }}</option>
                     <option value="5">⭐ 5</option>
                     <option value="4">⭐ 4</option>
                     <option value="3">⭐ 3</option>
@@ -131,22 +129,20 @@
                     <option value="1">⭐ 1</option>
                 </select>
 
-                <button class="btn btn-sm btn-primary">Filter</button>
+                <button class="btn btn-sm btn-primary">{{ __('Filter') }}</button>
             </form>
-
 
             @forelse($reviews as $review)
                 <div class="border rounded p-2 mb-2">
                     <strong>⭐ {{ $review->rating }}/5</strong>
                     <p class="mb-1">{{ $review->comment }}</p>
                     <small class="text-muted">
-                        Posted {{ $review->created_at->diffForHumans() }}
+                        {{ __('Posted') }} {{ $review->created_at->diffForHumans() }}
                     </small>
                 </div>
             @empty
-                <p class="text-muted">No reviews yet.</p>
+                <p class="text-muted">{{ __('No reviews yet.') }}</p>
             @endforelse
-
 
             <div class="mt-3">
                 {{ $reviews->links() }}
@@ -154,7 +150,3 @@
         </div>
     </div>
 @endsection
-
-
-
-

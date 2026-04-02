@@ -8,7 +8,7 @@
 
 <div class="container my-4">
     <div class="p-4 bg-light rounded">
-        <h2>{{ $title }}</h2>
+        <h2>{{ __($title) }}</h2>
         @if($ads->count() > 0)
             <div class="row">
                 @foreach($ads as $ad)
@@ -20,10 +20,10 @@
                 @endforeach
             </div>
 
-            {{--            <!-- Optional pagination -->--}}
-            {{--            <div class="d-flex justify-content-center">--}}
-            {{--                {{ $ads->links() }}--}}
-            {{--            </div>--}}
+            {{-- Optional pagination --}}
+            {{-- <div class="d-flex justify-content-center">
+                {{ $ads->links() }}
+            </div> --}}
         @endif
     </div>
 </div>

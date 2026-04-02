@@ -25,45 +25,45 @@
             <!-- Navbar links -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ company_route('index') }}" style="color: {{ $secondaryColor }}">Home</a>
+                    <a class="nav-link" href="{{ company_route('index') }}" style="color: {{ $secondaryColor }}">{{ __('Home') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ company_route('ads') }}" style="color: {{ $secondaryColor }}">{{__('ads')}}</a>
+                    <a class="nav-link" href="{{ company_route('ads') }}" style="color: {{ $secondaryColor }}">{{ __('Ads') }}</a>
                 </li>
 
                 @if(isRole(User::TYPE_USER))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('favorites') }}" style="color: {{ $secondaryColor }}">Favorites</a>
+                        <a class="nav-link" href="{{ route('favorites') }}" style="color: {{ $secondaryColor }}">{{ __('Favorites') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.saleHistory') }}" style="color: {{ $secondaryColor }}">Purchased</a>
+                        <a class="nav-link" href="{{ route('user.saleHistory') }}" style="color: {{ $secondaryColor }}">{{ __('Purchased') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.rentalHistory') }}" style="color: {{ $secondaryColor }}">Rented</a>
+                        <a class="nav-link" href="{{ route('user.rentalHistory') }}" style="color: {{ $secondaryColor }}">{{ __('Rented') }}</a>
                     </li>
                 @endif
 
                 @if(isRole(User::TYPE_SELLER))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">Create Ad</a>
+                        <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">{{ __('Create Ad') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('seller.saleHistory') }}" style="color: {{ $secondaryColor }}">My Ads</a>
+                        <a class="nav-link" href="{{ route('seller.saleHistory') }}" style="color: {{ $secondaryColor }}">{{ __('My Ads') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('seller.rentalOverview') }}" style="color: {{ $secondaryColor }}">Agenda</a>
+                        <a class="nav-link" href="{{ route('seller.rentalOverview') }}" style="color: {{ $secondaryColor }}">{{ __('Agenda') }}</a>
                     </li>
                 @endif
 
                 @if(isRole(User::TYPE_COMPANY))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">Create Ad</a>
+                        <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">{{ __('Create Ad') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('company.showSettings') }}" style="color: {{ $secondaryColor }}">Settings</a>
+                        <a class="nav-link" href="{{ route('company.showSettings') }}" style="color: {{ $secondaryColor }}">{{ __('Settings') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('company.components') }}" style="color: {{ $secondaryColor }}">Components</a>
+                        <a class="nav-link" href="{{ route('company.components') }}" style="color: {{ $secondaryColor }}">{{ __('Components') }}</a>
                     </li>
                 @endif
             </ul>
@@ -72,10 +72,10 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ company_route('login') }}" style="color: {{ $secondaryColor }}">Login</a>
+                        <a class="nav-link" href="{{ company_route('login') }}" style="color: {{ $secondaryColor }}">{{ __('Login') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ company_route('register') }}" style="color: {{ $secondaryColor }}">Register</a>
+                        <a class="nav-link" href="{{ company_route('register') }}" style="color: {{ $secondaryColor }}">{{ __('Register') }}</a>
                     </li>
                 @endguest
 
@@ -85,11 +85,12 @@
                             @csrf
                             <button type="submit" class="btn btn-link nav-link p-0"
                                     style="color: {{ $secondaryColor }}; display:inline;">
-                                Log Out
+                                {{ __('Log Out') }}
                             </button>
                         </form>
                     </li>
                 @endauth
+                <x-header/>
             </ul>
         </div>
     </nav>

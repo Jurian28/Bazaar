@@ -2,7 +2,11 @@
 @section('title', 'Ad Page')
 
 @section('content')
-    <x-ad.adList :ads="$ads" :title="'Advertisements'" :emptyText="'No advertisements found.'"></x-ad.adList>
+    <x-ad.adList
+        :ads="$ads"
+        :title="__('Advertisements')"
+        :emptyText="__('No advertisements found.')">
+    </x-ad.adList>
 {{--    <div class="container my-5">--}}
 {{--        <h1 class="mb-4">Advertisements</h1>--}}
 

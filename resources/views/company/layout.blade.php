@@ -9,16 +9,16 @@
     <title>@yield('title')</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3">
-        <a class="navbar-brand" href="#">Dashboard</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ route('company.showSettings') }}">Settings</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('company.components') }}">Edit home page</a></li>
-            </ul>
-        </div>
-    </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3">
+    <a class="navbar-brand" href="#">{{ __('Dashboard') }}</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="{{ route('company.showSettings') }}">{{ __('Settings') }}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('company.components') }}">{{ __('Edit home page') }}</a></li>
+        </ul>
+    </div>
+</nav>
 
-    @yield('content')
+@yield('content')
 </body>
 </html>

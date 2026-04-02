@@ -8,7 +8,10 @@ use App\Models\Rental;
 use App\Models\Review;
 use App\Models\Sale;
 use App\Models\User;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 
 class AdController extends Controller {
@@ -25,6 +28,8 @@ class AdController extends Controller {
     public function showAd(Request $request, $adId): View {
         $ad = Advertisement::where('id', $adId)->first();
 
+        $qrCode = $this->getQrCode($adId);
+
         $company = $ad->company;
 
         $query = $ad->reviews()->latest();
@@ -35,7 +40,16 @@ class AdController extends Controller {
 
         $reviews = $query->paginate(5)->withQueryString();
 
-        return view('public.ad', compact('company', 'ad', 'reviews'));
+        return view('public.ad', compact('company', 'ad', 'reviews', 'qrCode'));
+    }
+
+    private function getQrCode($adId): string {
+        $qrCode = new Builder(
+            writer: new PngWriter(),
+            data: route('ads.show', ['adId' => $adId])
+        );
+
+        return $qrCode->build()->getDataUri();
     }
 
     public function showCreateAd($companySlug = null): View {
@@ -169,4 +183,35 @@ class AdController extends Controller {
 
         return $ads;
     }
+
+
+
+    public function uploadAds(Request $request): void
+    {
+        $request->validate([
+            'csv_file' => 'required|mimes:csv,txt'
+        ], [
+            'csv_file.required' => 'The CSV file is required.',
+            'csv_file.mimes' => 'The CSV file must be a file of type: csv, txt.'
+        ]);
+
+        $file = $request->file('csv_file');
+        $path = $file->getRealPath();
+        $data = array_map('str_getcsv', file($path));
+
+        $header = array_shift($data);
+        foreach ($data as $row) {
+            $row = array_combine($header, $row);
+            Advertisement::create([
+                'title' => $row['title'],
+                'description' => $row['description'],
+                'price' => $row['price'],
+                'image' => $row['image'],
+                'type' => $row['type'],
+                'user_id' => auth()->id(),
+                'expires_at' => $row['expires_at'],
+            ]);
+        }
+    }
+
 }

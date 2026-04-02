@@ -1,14 +1,16 @@
 @extends('components.layout')
-@section('title', 'Rent item')
+@section('title', __('Rent item'))
 
 @section('content')
     <div class="container mt-5">
-        <h2 class="mb-4">Rent: {{ $ad->title }}</h2>
+        <h2 class="mb-4">{{ __('Rent') }}: {{ $ad->title }}</h2>
 
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">{{ $ad->title }}</h5>
-                <p><strong>Price per day: €{{ number_format($ad->rental->price_per_day, 2) }}</strong></p>
+                <p>
+                    <strong>{{ __('Price per day') }}: €{{ number_format($ad->rental->price_per_day, 2) }}</strong>
+                </p>
             </div>
         </div>
 
@@ -16,17 +18,17 @@
             @csrf
 
             <div class="mb-3">
-                <label for="start_date">Start date</label>
+                <label for="start_date">{{ __('Start date') }}</label>
                 <input type="date" name="start_date" class="form-control" required>
             </div>
 
             <div class="mb-3">
-                <label for="end_date">End date</label>
+                <label for="end_date">{{ __('End date') }}</label>
                 <input type="date" name="end_date" class="form-control" required>
             </div>
 
-            <button type="submit" class="btn btn-success">Rent now</button>
-            <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-success">{{ __('Rent now') }}</button>
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
         </form>
     </div>
 @endsection

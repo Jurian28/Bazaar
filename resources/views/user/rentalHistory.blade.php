@@ -1,19 +1,19 @@
 @extends('components.layout')
-@section('title', 'Agenda')
+@section('title', __('Agenda'))
 
 @section('content')
     <div class="container mt-5">
-        <h1 class="text-2xl font-bold mb-4">My Rentals</h1>
+        <h1 class="text-2xl font-bold mb-4">{{ __('My Rentals') }}</h1>
 
         @if($rentalBids->count())
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border">
                     <thead>
                     <tr class="bg-gray-100 text-left">
-                        <th class="py-2 px-4 border-b">Title</th>
-                        <th class="py-2 px-4 border-b">Start Date</th>
-                        <th class="py-2 px-4 border-b">End Date</th>
-                        <th class="py-2 px-4 border-b">Created At</th>
+                        <th class="py-2 px-4 border-b">{{ __('Title') }}</th>
+                        <th class="py-2 px-4 border-b">{{ __('Start Date') }}</th>
+                        <th class="py-2 px-4 border-b">{{ __('End Date') }}</th>
+                        <th class="py-2 px-4 border-b">{{ __('Created At') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -35,7 +35,7 @@
                 {{ $rentalBids->links() }}
             </div>
         @else
-            <p>No rentals found.</p>
+            <p>{{ __('No rentals found.') }}</p>
         @endif
     </div>
 @endsection

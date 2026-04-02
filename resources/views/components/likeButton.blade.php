@@ -10,9 +10,9 @@
     <form action="{{ route('ad.favorite', ['adId' => $ad->id]) }}" method="POST" class="d-inline">
         @csrf
         @if ($liked)
-            <button type="submit" class="btn btn-primary btn-sm">Unlike</button>
+            <button type="submit" class="btn btn-primary btn-sm">{{ __('Unlike') }}</button>
         @else
-            <button type="submit" class="btn btn-primary btn-sm">Like</button>
+            <button type="submit" class="btn btn-primary btn-sm">{{ __('Like') }}</button>
         @endif
     </form>
 @endif
