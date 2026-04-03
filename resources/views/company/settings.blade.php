@@ -50,8 +50,15 @@
 
             <div class="mb-4">
                 <label class="block mb-1 font-medium">{{ __('Font Family') }}</label>
-                <input type="text" name="font_family" value="{{ old('font_family', $company->font_family) }}"
-                       class="border rounded w-full p-2">
+
+                <select name="font_family" class="border rounded w-full p-2">
+                    @foreach($fonts as $font)
+                        <option value="{{ $font}}"
+                            {{ old('font_family', $company->font_family) === $font ? 'selected' : '' }}>
+                            {{ $font}}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">{{ __('Update') }}</button>

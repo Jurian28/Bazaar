@@ -127,4 +127,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'google_font_api_key' => env('GOOGLE_FONT_API_KEY'),
 ];

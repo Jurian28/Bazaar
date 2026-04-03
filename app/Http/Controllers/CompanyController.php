@@ -6,12 +6,15 @@ use App\Models\Company;
 use App\Models\CompanyComponent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class CompanyController extends Controller
 {
     function showSettings() {
         $company = auth()->user()->company;
-        return view('company.settings', compact('company'));
+
+        $fonts = $this->getGoogleFonts();
+        return view('company.settings', compact('company', 'fonts'));
     }
 
     function updateSettings(Request $request) {
@@ -23,7 +26,7 @@ class CompanyController extends Controller
             'primary_color' => 'nullable|string|max:7',
             'secondary_color' => 'nullable|string|max:7',
             'logo_url' => 'nullable|url',
-            'font_family' => 'nullable|string|max:255',
+            'font_family' => 'string|max:255',
         ]);
 
         $company->update($validatedData);
@@ -31,6 +34,19 @@ class CompanyController extends Controller
         return redirect()->route('company.showSettings');
     }
 
+
+    private function getGoogleFonts()
+    {
+        $apiKey = config('app.google_font_api_key');
+
+        $response = Http::get("https://www.googleapis.com/webfonts/v1/webfonts?key={$apiKey}");
+
+        if ($response->successful()) {
+            return collect($response->json()['items'])->pluck('family');
+        }
+
+        return [];
+    }
 
     function components() {
         $company = auth()->user()->company;

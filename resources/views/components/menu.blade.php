@@ -70,6 +70,7 @@
 
             <!-- Authentication links -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <x-header/>
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ company_route('login') }}" style="color: {{ $secondaryColor }}">{{ __('Login') }}</a>
@@ -80,17 +81,17 @@
                 @endguest
 
                 @auth
-                    <li class="nav-item">
-                        <form method="POST" action="{{ company_route('logout') }}">
+                    <li class="nav-item d-flex align-items-center">
+                        <form method="POST" action="{{ company_route('logout') }}" class="m-0">
                             @csrf
-                            <button type="submit" class="btn btn-link nav-link p-0"
-                                    style="color: {{ $secondaryColor }}; display:inline;">
+                            <button type="submit"
+                                    class="nav-link btn btn-link"
+                                    style="color: {{ $secondaryColor }};">
                                 {{ __('Log Out') }}
                             </button>
                         </form>
                     </li>
                 @endauth
-                <x-header/>
             </ul>
         </div>
     </nav>

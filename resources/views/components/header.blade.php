@@ -1,8 +1,10 @@
 @foreach(config('app.available_locales') as $locale => $name)
-    <li>
-        <a href="{{ route('change-locale', $locale) }}" class="{{ app()->getLocale() === $locale ? 'active' : '' }}">
-            {{ $name }}
-            {{--                                <img class="lang-flag" src="{{@asset('images/'.$locale.'.png')}}" alt="{{ $name }}">--}}
-        </a>
+    <li class="nav-item">
+        @if(app()->getLocale() !== $locale)
+            <a href="{{ route('change-locale', $locale) }}"
+               class="nav-link {{ app()->getLocale() === $locale ? 'active fw-bold' : '' }}">
+                {{ $name }}
+            </a>
+        @endif
     </li>
 @endforeach

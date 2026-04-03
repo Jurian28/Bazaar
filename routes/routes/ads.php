@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/ads/{adId}', [AdController::class, 'showAd'])->name('ads.show');
 Route::post('/ads/{adId}/review', [AdController::class, 'review'])->name('ads.review');
 
+Route::post('/company/uploadAdCSV', [AdController::class, 'uploadAds'])->name('company.uploadAdCSV');
+
 Route::controller(RentalBidController::class)
     ->middleware(['role:user'])
     ->group(function () {

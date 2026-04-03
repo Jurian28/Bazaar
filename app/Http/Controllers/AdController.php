@@ -185,7 +185,6 @@ class AdController extends Controller {
     }
 
 
-
     public function uploadAds(Request $request): void
     {
         $request->validate([
