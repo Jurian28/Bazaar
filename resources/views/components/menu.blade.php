@@ -15,13 +15,6 @@
     <nav class="navbar navbar-expand-lg"
          style="background-color: {{ $primaryColor }}; font-family: {{ $fontFamily }};">
         <div class="container">
-            <!-- Logo -->
-            @if($company->logo_url)
-                <a class="navbar-brand" href="{{ company_route('index') }}">
-                    <img src="{{ $company->logo_url }}" alt="{{ $company->name }}" height="40">
-                </a>
-            @endif
-
             <!-- Navbar links -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -39,6 +32,9 @@
                         <a class="nav-link" href="{{ route('user.saleHistory') }}" style="color: {{ $secondaryColor }}">{{ __('Purchased') }}</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.offerHistory') }}" style="color: {{ $secondaryColor }}">{{ __('Bids') }}</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.rentalHistory') }}" style="color: {{ $secondaryColor }}">{{ __('Rented') }}</a>
                     </li>
                 @endif
@@ -48,7 +44,10 @@
                         <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">{{ __('Create Ad') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('seller.saleHistory') }}" style="color: {{ $secondaryColor }}">{{ __('My Ads') }}</a>
+                        <a class="nav-link" href="{{ route('seller.saleHistory') }}" style="color: {{ $secondaryColor }}">{{ __('My sales') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('seller.offerHistory') }}" style="color: {{ $secondaryColor }}">{{ __('My offers') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('seller.rentalOverview') }}" style="color: {{ $secondaryColor }}">{{ __('Agenda') }}</a>
@@ -65,12 +64,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('company.components') }}" style="color: {{ $secondaryColor }}">{{ __('Components') }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('company.importExport') }}" style="color: {{ $secondaryColor }}">{{ __('Import/Export') }}</a>
+                    </li>
                 @endif
             </ul>
 
             <!-- Authentication links -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <x-header/>
+                <x-language :color="$secondaryColor"/>
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ company_route('login') }}" style="color: {{ $secondaryColor }}">{{ __('Login') }}</a>

@@ -95,7 +95,6 @@ class AuthController extends Controller
             'slug' => $slug,
             'primary_color' => '#1F2937',
             'secondary_color' => '#6B7280',
-            'logo_url' => '',
             'font_family' => '',
         ]);
     }

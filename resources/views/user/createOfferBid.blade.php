@@ -9,9 +9,9 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $ad->title }}</h5>
                 <p>
-                    <strong>{{ __('Start price') }}: €{{ number_format($ad->sale->start_price, 2) }}</strong>
+                    <strong>{{ __('Start price') }}: €{{ number_format($ad->offer->start_price, 2) }}</strong>
                 </p>
-                <p class="card-text">{{ $ad->sale->end_time }}</p>
+                <p class="card-text">{{ $ad->offer->end_time }}</p>
             </div>
         </div>
 
@@ -23,13 +23,13 @@
                 <input
                     type="number"
                     name="price"
-                    value="{{ $ad->sale->start_price }}"
-                    min="{{ $ad->sale->start_price }}"
+                    value="{{ $ad->offer->start_price }}"
+                    min="{{ $ad->offer->start_price }}"
                     required
                 >
             </div>
 
-            <button type="submit" class="btn btn-success">{{ __('Buy Now') }}</button>
+            <button type="submit" class="btn btn-success">{{ __('Place bid') }}</button>
             <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
         </form>
     </div>

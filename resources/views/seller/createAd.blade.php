@@ -25,13 +25,14 @@
             <div class="mb-3">
                 <label class="form-label">{{ __('Type') }}</label>
                 <select name="type" id="typeSelect" class="form-control">
-                    <option value="sale" {{ old('type') === 'sale' ? 'selected' : '' }}>{{ __('Direct Sale') }}</option>
+                    <option value="sale" {{ old('type') === 'sale' ? 'selected' : '' }}>{{ __('Sale') }}</option>
+                    <option value="offer" {{ old('type') === 'offer' ? 'selected' : '' }}>{{ __('Offer') }}</option>
                     <option value="rental" {{ old('type') === 'rental' ? 'selected' : '' }}>{{ __('Rental') }}</option>
                 </select>
             </div>
 
-            {{-- SALE --}}
-            <div id="saleFields" style="display:none;">
+            {{-- OFFER --}}
+            <div id="offerFields" style="display:none;">
                 <div class="mb-3">
                     <label class="form-label">{{ __('Start price (€)') }}</label>
                     <input type="number" step="0.01" name="start_price" class="form-control" value="{{ old('start_price') }}">
@@ -39,14 +40,19 @@
 
                 <div class="mb-3">
                     <label class="form-label">{{ __('End date') }}</label>
-                    <input type="datetime-local" name="end_time" class="form-control" value="{{ old('end_time') }}">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">{{ __('Max bids') }}</label>
-                    <input type="number" name="max_bids" class="form-control" min="1" max="4" value="{{ old('max_bids', 4) }}">
+                    <input type="date" name="offer_end_date" class="form-control" value="{{ old('offer_end_date') }}">
                 </div>
             </div>
+
+
+            {{-- SALE --}}
+            <div id="saleFields" style="display:none;">
+                <div class="mb-3">
+                    <label class="form-label">{{ __('Price (€)') }}</label>
+                    <input type="number" step="0.01" name="price" class="form-control" value="{{ old('price') }}">
+                </div>
+            </div>
+
 
             {{-- RENTAL --}}
             <div id="rentalFields" style="display:none;">
@@ -56,31 +62,26 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">{{ __('Max rentals') }}</label>
-                    <input type="number" name="max_rentals" class="form-control" min="1" max="4" value="{{ old('max_rentals', 4) }}">
-                </div>
-
-                <div class="mb-3">
                     <label class="form-label">{{ __('Start date') }}</label>
                     <input type="date" name="start_date" class="form-control" value="{{ old('start_date') }}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">{{ __('End date') }}</label>
-                    <input type="date" name="end_date" class="form-control" value="{{ old('end_date') }}">
+                    <input type="date" name="rental_end_date" class="form-control" value="{{ old('rental_end_date') }}">
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary mb-5">
                 {{ __('Create Ad') }}
             </button>
 
         </form>
     </div>
 
-    {{-- JS voor dynamische velden --}}
     <script>
         const typeSelect = document.getElementById('typeSelect');
+        const offerFields = document.getElementById('offerFields');
         const saleFields = document.getElementById('saleFields');
         const rentalFields = document.getElementById('rentalFields');
 
@@ -88,6 +89,7 @@
             const type = typeSelect.value;
 
             saleFields.style.display = (type === 'sale') ? 'block' : 'none';
+            offerFields.style.display = (type === 'offer') ? 'block' : 'none';
             rentalFields.style.display = (type === 'rental') ? 'block' : 'none';
         }
 

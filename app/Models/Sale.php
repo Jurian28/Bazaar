@@ -11,15 +11,11 @@ class Sale extends Model
 
     protected $fillable = [
         'advertisement_id',
-        'start_price',
-        'end_time',
-        'max_bids',
+        'price'
     ];
 
     protected $casts = [
-        'start_price' => 'decimal:2',
-        'end_time' => 'datetime',
-        'max_bids' => 'integer',
+        'price' => 'decimal:2',
     ];
 
     public function advertisement()

@@ -1,7 +1,6 @@
 <?php
 
-use App\View\Components\Header;
-use Illuminate\Support\Facades\App;
+use App\View\Components\Language;
 use Illuminate\Support\Facades\Route;
 require __DIR__ . '/routes/auth.php';
 require __DIR__ . '/routes/companySettings.php';
@@ -12,7 +11,7 @@ require __DIR__ . '/routes/favorites.php';
 
 
 Route::group(['middleware' => 'web'], function () {
-    Route::get('change-locale/{locale}', [Header::class, 'changeLocale'])->name('change-locale');
+    Route::get('change-locale/{locale}', [Language::class, 'changeLocale'])->name('change-locale');
 });
 
 

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('primary_color')->nullable();
             $table->string('secondary_color')->nullable();
-            $table->string('logo_url')->nullable();
             $table->string('font_family')->nullable();
             $table->timestamps();
         });

@@ -9,12 +9,9 @@ class SaleBid extends Model
 {
     use HasFactory;
 
-    protected $table = 'sale_bids';
-
     protected $fillable = [
         'advertisement_id',
         'user_id',
-        'price',
     ];
 
     public function advertisement()

@@ -18,11 +18,7 @@ return new class extends Migration
                 ->constrained('advertisements')
                 ->onDelete('cascade');
 
-            $table->decimal('start_price', 10, 2);
-            $table->dateTime('end_time');
-
-            // Max bids per user (business rule)
-            $table->unsignedTinyInteger('max_bids')->default(4);
+            $table->decimal('price', 10, 2);
 
             $table->timestamps();
         });

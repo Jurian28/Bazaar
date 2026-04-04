@@ -14,6 +14,8 @@
                         <th class="py-2 px-4 border-b">{{ __('Start Date') }}</th>
                         <th class="py-2 px-4 border-b">{{ __('End Date') }}</th>
                         <th class="py-2 px-4 border-b">{{ __('Created At') }}</th>
+                        <th class="py-2 px-4 border-b"></th>
+                        <th class="py-2 px-4 border-b"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -24,6 +26,36 @@
                                 <td class="py-2 px-4 border-b">{{ \Carbon\Carbon::parse($bid->start_date)->format('d M Y H:i') }}</td>
                                 <td class="py-2 px-4 border-b">{{ \Carbon\Carbon::parse($bid->end_date)->format('d M Y H:i') }}</td>
                                 <td class="py-2 px-4 border-b">{{ $bid->created_at->format('d M Y') }}</td>
+                                <td class="py-2 px-4 border-b">
+                                    @if ($bid->accepted === null)
+                                        <a href="{{ route('rentalBid.accept', ['rentalBidId' => $bid->id]) }}"
+                                           class="btn btn-success btn-sm">
+                                            {{ __('Accept') }}
+                                        </a>
+
+                                        <a href="{{ route('rentalBid.decline', ['rentalBidId' => $bid->id]) }}"
+                                           class="btn btn-danger btn-sm ml-2">
+                                            {{ __('Decline') }}
+                                        </a>
+
+                                    @elseif ($bid->accepted)
+                                        <span class="text-green-600 font-semibold">
+                                            {{ __('Accepted') }}
+                                        </span>
+
+                                    @else
+                                        <span class="text-red-600 font-semibold">
+                                            {{ __('Declined') }}
+                                        </span>
+                                    @endif
+                                </td>
+
+
+                                <td class="py-2 px-4 border-b">
+                                    <a href="{{ route('ads.show', ['adId' => $bid->advertisement->id]) }}" class="btn btn-primary btn-sm">
+                                        {{ __('View Details') }}
+                                    </a>
+                                </td>
                             </tr>
                         @endif
                     @endforeach

@@ -16,8 +16,6 @@ return new class extends Migration
             $table->foreignId('advertisement_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
-            $table->decimal('price', 10, 2);
-
             $table->timestamps();
         });
     }

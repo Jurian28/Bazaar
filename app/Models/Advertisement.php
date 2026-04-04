@@ -25,6 +25,9 @@ class Advertisement extends Model
     public function rental() {
         return $this->hasOne(Rental::class);
     }
+    public function offer() {
+        return $this->hasOne(Offer::class);
+    }
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -41,6 +44,10 @@ class Advertisement extends Model
         return $this->hasMany(RentalBid::class);
     }
 
+    public function offerBids() {
+        return $this->hasMany(OfferBid::class);
+    }
+
     public function favoritedBy() {
         return $this->belongsToMany(User::class, 'favorites');
     }
@@ -52,6 +59,10 @@ class Advertisement extends Model
 
     public function isRental() {
         return $this->type == 'rental';
+    }
+
+    public function isOffer() {
+        return $this->type == 'offer';
     }
     public function isSale() {
         return $this->type == 'sale';

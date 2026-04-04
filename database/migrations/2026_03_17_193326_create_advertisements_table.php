@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->enum('type', ['sale','rental'])->default('sale');
+            $table->enum('type', ['sale','rental', 'offer'])->default('sale');
             $table->timestamps();
         });
     }

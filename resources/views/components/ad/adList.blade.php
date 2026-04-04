@@ -20,6 +20,7 @@
                     <option value="">{{ __('All Types') }}</option>
                     <option value="sale" {{ request('type') == 'sale' ? 'selected' : '' }}>{{ __('Sale') }}</option>
                     <option value="rental" {{ request('type') == 'rental' ? 'selected' : '' }}>{{ __('Rental') }}</option>
+                    <option value="offer" {{ request('type') == 'offer' ? 'selected' : '' }}>{{ __('Offer') }}</option>
                 </select>
             </div>
 
@@ -57,10 +58,12 @@
     @if($ads->count() > 0)
         <div class="row">
             @foreach($ads as $ad)
-                @if ($ad->type == 'sale')
+                @if ($ad->isSale())
                     <x-ad.sale :ad="$ad"></x-ad.sale>
-                @elseif($ad->type == 'rental')
+                @elseif($ad->isRental())
                     <x-ad.rental :ad="$ad"></x-ad.rental>
+                @elseif($ad->isOffer())
+                    <x-ad.offer :ad="$ad"></x-ad.offer>
                 @endif
             @endforeach
         </div>

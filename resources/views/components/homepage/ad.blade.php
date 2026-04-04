@@ -12,10 +12,12 @@
         @if($ads->count() > 0)
             <div class="row">
                 @foreach($ads as $ad)
-                    @if ($ad->type == 'sale')
+                    @if ($ad->isSale())
                         <x-ad.sale :ad="$ad"></x-ad.sale>
-                    @elseif($ad->type == 'rental')
+                    @elseif($ad->isRental())
                         <x-ad.rental :ad="$ad"></x-ad.rental>
+                    @elseif($ad->isOffer())
+                        <x-ad.offer :ad="$ad"></x-ad.offer>
                     @endif
                 @endforeach
             </div>

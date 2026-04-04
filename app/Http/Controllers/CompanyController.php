@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\CompanyComponent;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -25,7 +26,6 @@ class CompanyController extends Controller
             'slug' => 'required|string|max:255|unique:companies,slug,' . $company->id,
             'primary_color' => 'nullable|string|max:7',
             'secondary_color' => 'nullable|string|max:7',
-            'logo_url' => 'nullable|url',
             'font_family' => 'string|max:255',
         ]);
 
@@ -158,4 +158,11 @@ class CompanyController extends Controller
 
         return back();
     }
+
+
+    public function showImportExport(): View {
+        $company = auth()->user()->company;
+        return view('company.importExport', compact('company'));
+    }
+
 }

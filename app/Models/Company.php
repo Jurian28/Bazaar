@@ -12,7 +12,6 @@ class Company extends Model
         'slug',
         'primary_color',
         'secondary_color',
-        'logo_url',
         'font_family',
     ];
 

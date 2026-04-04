@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\OfferBidController;
 use App\Http\Controllers\RentalBidController;
 use App\Http\Controllers\SaleBidController;
 use Illuminate\Support\Facades\Route;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/ads/{adId}', [AdController::class, 'showAd'])->name('ads.show');
 Route::post('/ads/{adId}/review', [AdController::class, 'review'])->name('ads.review');
 
-Route::post('/company/uploadAdCSV', [AdController::class, 'uploadAds'])->name('company.uploadAdCSV');
+Route::post('/company/{companyId}/uploadAdCSV', [AdController::class, 'uploadAds'])->name('company.uploadAdCSV');
 
 Route::controller(RentalBidController::class)
     ->middleware(['role:user'])
@@ -18,9 +19,27 @@ Route::controller(RentalBidController::class)
         Route::get('/ads/{ad}/rent',  'create')->name('ads.rent.form');
         Route::post('/ads/{ad}/rent',  'store')->name('ads.rent');
 
+
+
     });
 
+
+Route::controller(RentalBidController::class)
+    ->middleware(['role:seller'])
+    ->group(function () {
+        Route::get('/rentalBid/accept/{rentalBidId}', 'acceptRentalBid')->name('rentalBid.accept')->middleware('role:seller');
+        Route::get('/rentalBid/decline/{rentalBidId}', 'declineRentalBid')->name('rentalBid.decline')->middleware('role:seller');
+    });
+
+
 Route::controller(SaleBidController::class)
+    ->middleware(['role:user'])
+    ->group(function () {
+        Route::post('/ads/{ad}/buy',  'store')->name('ads.buy');
+    });
+
+
+Route::controller(OfferBidController::class)
     ->middleware(['role:user'])
     ->group(function () {
         Route::get('/ads/{ad}/bid',  'create')->name('ads.bid.form');

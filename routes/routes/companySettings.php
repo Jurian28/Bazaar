@@ -15,4 +15,6 @@ Route::prefix('company')
         Route::post('components/ad', [CompanyController::class, 'addAd'])->name('company.components.addAd');
         Route::post('components/changeOrder/{direction}', [CompanyController::class, 'changeOrder'])->name('company.components.changeOrder');
         Route::post('components/delete', [CompanyController::class, 'delete'])->name('company.components.delete');
+
+        Route::get('import-export', [CompanyController::class, 'showImportExport'])->name('company.importExport');
     });

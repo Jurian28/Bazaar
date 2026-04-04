@@ -14,6 +14,8 @@
                         <th class="py-2 px-4 border-b">{{ __('Start Date') }}</th>
                         <th class="py-2 px-4 border-b">{{ __('End Date') }}</th>
                         <th class="py-2 px-4 border-b">{{ __('Created At') }}</th>
+                        <th class="py-2 px-4 border-b">{{ __('Status') }}</th>
+                        <th class="py-2 px-4 border-b"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -24,6 +26,21 @@
                                 <td class="py-2 px-4 border-b">{{ \Carbon\Carbon::parse($bid->start_date)->format('d M Y H:i') }}</td>
                                 <td class="py-2 px-4 border-b">{{ \Carbon\Carbon::parse($bid->end_date)->format('d M Y H:i') }}</td>
                                 <td class="py-2 px-4 border-b">{{ $bid->created_at->format('d M Y') }}</td>
+                                <td class="py-2 px-4 border-b">
+                                    @if ($bid->accepted === null)
+                                        {{ __('Waiting') }}
+                                    @elseif ($bid->accepted)
+                                        {{ __('Accepted') }}
+                                    @else
+                                        {{ __('Declined') }}
+                                    @endif
+                                </td>
+                                <td class="py-2 px-4 border-b">
+                                    <a href="{{ route('ads.show', ['adId' => $bid->advertisement->id]) }}" class="btn btn-primary btn-sm">
+                                        {{ __('View Details') }}
+                                    </a>
+                                </td>
+
                             </tr>
                         @endif
                     @endforeach

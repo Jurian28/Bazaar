@@ -17,12 +17,12 @@ class RentalBid extends Model
         'start_date',
         'end_date',
         'photo_returned',
+        'accepted',
     ];
 
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
-        'total_price' => 'decimal:2',
     ];
 
     public function advertisement()

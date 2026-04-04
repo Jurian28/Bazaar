@@ -17,11 +17,11 @@ return new class extends Migration
                 ->unique()
                 ->constrained()
                 ->onDelete('cascade');
-            $table->decimal('price_per_day', 10, 2);
-            $table->unsignedTinyInteger('max_rentals')->default(4); // added max_rentals
+
             $table->date('start_date');
             $table->date('end_date');
-            $table->decimal('wear_level', 5, 2)->default(0);
+            $table->decimal('price_per_day', 10, 2);
+
             $table->timestamps();
         });
     }

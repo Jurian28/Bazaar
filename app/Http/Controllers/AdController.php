@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
+use App\Models\Offer;
+use Illuminate\Support\Facades\DB;
 use App\Models\Company;
 use App\Models\Rental;
 use App\Models\Review;
@@ -11,7 +13,6 @@ use App\Models\User;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 
 class AdController extends Controller {
@@ -26,7 +27,7 @@ class AdController extends Controller {
     }
 
     public function showAd(Request $request, $adId): View {
-        $ad = Advertisement::where('id', $adId)->first();
+        $ad = Advertisement::where('id', $adId)->with('offerBids')->first();
 
         $qrCode = $this->getQrCode($adId);
 
@@ -73,8 +74,7 @@ class AdController extends Controller {
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'type' => 'required|in:sale,rental',
-            'company_id' => 'exists:companies,id',
+            'type' => 'required|in:sale,offer,rental',
         ]);
 
         $ad = Advertisement::create([
@@ -84,48 +84,62 @@ class AdController extends Controller {
             'type' => $request->type,
             'user_id' => auth()->id(),
         ]);
-
         switch ($request->type) {
             case 'sale':
                 $this->createSale($request, $ad);
                 break;
+
+            case 'offer':
+                $this->createOffer($request, $ad);
+                break;
+
             case 'rental':
                 $this->createRental($request, $ad);
                 break;
         }
-        return $this->ads($companySlug);
+
+        return $this->ads($request, $companySlug);
     }
 
     private function createSale(Request $request, Advertisement $ad)
     {
         $request->validate([
-            'start_price' => 'required|numeric|min:0',
-            'end_time' => 'required|date|after:now',
-            'max_bids' => 'nullable|integer|min:1|max:4',
+            'price' => 'required|numeric|min:0',
         ]);
 
         Sale::create([
             'advertisement_id' => $ad->id,
-            'start_price' => $request->start_price,
-            'end_time' => $request->end_time,
-            'max_bids' => $request->max_bids ?? 4,
+            'price' => $request->price,
         ]);
     }
+
     private function createRental(Request $request, Advertisement $ad)
     {
         $request->validate([
             'price_per_day' => 'required|numeric|min:0',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date|after:start_date',
-            'max_rentals' => 'nullable|integer|min:1|max:4',
+            'start_date' => 'nullable|date|after_or_equal:today',
+            'rental_end_date' => 'nullable|date|after:start_date',
         ]);
 
         Rental::create([
             'advertisement_id' => $ad->id,
             'price_per_day' => $request->price_per_day,
             'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'max_rentals' => $request->max_rentals ?? 4,
+            'end_date' => $request->rental_end_date,
+        ]);
+    }
+
+    private function createOffer(Request $request, Advertisement $ad)
+    {
+        $request->validate([
+            'start_price' => 'required|numeric|min:0',
+            'offer_end_date' => 'required|date|after_or_equal:today',
+        ]);
+
+        Offer::create([
+            'advertisement_id' => $ad->id,
+            'start_price' => $request->start_price,
+            'end_date' => $request->offer_end_date,
         ]);
     }
 
@@ -185,32 +199,54 @@ class AdController extends Controller {
     }
 
 
-    public function uploadAds(Request $request): void
+
+    public function uploadAds(Request $request, $companyId)
     {
         $request->validate([
-            'csv_file' => 'required|mimes:csv,txt'
-        ], [
-            'csv_file.required' => 'The CSV file is required.',
-            'csv_file.mimes' => 'The CSV file must be a file of type: csv, txt.'
+            'file' => 'required|mimes:csv,txt'
         ]);
 
-        $file = $request->file('csv_file');
+        $file = $request->file('file');
         $path = $file->getRealPath();
         $data = array_map('str_getcsv', file($path));
 
         $header = array_shift($data);
-        foreach ($data as $row) {
-            $row = array_combine($header, $row);
-            Advertisement::create([
-                'title' => $row['title'],
-                'description' => $row['description'],
-                'price' => $row['price'],
-                'image' => $row['image'],
-                'type' => $row['type'],
-                'user_id' => auth()->id(),
-                'expires_at' => $row['expires_at'],
-            ]);
-        }
+
+        DB::transaction(function() use ($data, $header, $companyId) {
+            foreach ($data as $row) {
+                $row = array_combine($header, $row);
+
+                $ad = Advertisement::create([
+                    'title' => $row['title'],
+                    'description' => $row['description'],
+                    'type' => $row['type'],
+                    'user_id' => auth()->id(),
+                    'company_id' => $companyId
+                ]);
+
+                if ($row['type'] === 'rental') {
+                    Rental::create([
+                        'advertisement_id' => $ad->id,
+                        'start_date' => $row['start_date'],
+                        'end_date' => $row['end_date'],
+                        'price_per_day' => $row['price_per_day'],
+                        'wear_level' => $row['wear_level'],
+                        'max_rentals' => $row['max_rentals'],
+                    ]);
+                }
+
+                if ($row['type'] === 'sale') {
+                    Sale::create([
+                        'advertisement_id' => $ad->id,
+                        'start_price' => $row['start_price'],
+                        'end_time' => $row['end_time'],
+                        'max_bids' => $row['max_bids'],
+                    ]);
+                }
+            }
+        });
+
+        return redirect()->back()->with('success', 'CSV uploaded successfully!');
     }
 
 }

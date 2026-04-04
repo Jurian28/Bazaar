@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container my-5">
-        <h1 class="mb-4">{{ __('My advertisements') }}</h1>
+        <h1 class="mb-4">{{ __('My sales') }}</h1>
 
         @if($ads->count())
             <div class="overflow-x-auto">
@@ -11,21 +11,22 @@
                     <thead>
                     <tr class="bg-gray-100 text-left">
                         <th class="py-2 px-4 border-b">{{ __('Title') }}</th>
-                        <th class="py-2 px-4 border-b">{{ __('End Date') }}</th>
-                        <th class="py-2 px-4 border-b">{{ __('Highest Offer') }}</th>
+                        <th class="py-2 px-4 border-b">{{ __('Status') }}</th>
+                        <th class="py-2 px-4 border-b"></th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($ads as $ad)
                         @if($ad->isSale())
-                            @php
-                                $highestOffer = $ad->saleBids()->orderBy('price', 'desc')->value('price');
-                            @endphp
-
                             <tr>
                                 <td class="py-2 px-4 border-b">{{ $ad->title }}</td>
-                                <td class="py-2 px-4 border-b">{{ \Carbon\Carbon::parse($ad->sale->end_date)->format('d M Y H:i') }}</td>
-                                <td class="py-2 px-4 border-b">{{ $highestOffer ?? __('N/A')  }}</td>
+                                <td class="py-2 px-4 border-b">{{ $ad->sale_bids_exists ? __('sold') : __('open') }}</td>
+
+                                <td class="py-2 px-4 border-b">
+                                    <a href="{{ route('ads.show', ['adId' => $ad->id]) }}" class="btn btn-primary btn-sm">
+                                        {{ __('View Details') }}
+                                    </a>
+                                </td>
                             </tr>
                         @endif
                     @endforeach

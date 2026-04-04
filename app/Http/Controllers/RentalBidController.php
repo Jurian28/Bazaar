@@ -40,4 +40,18 @@ class RentalBidController extends Controller
 
         return redirect()->route('ads.show', ['adId' => $ad->id]);
     }
+
+    public function acceptRentalBid($rentalBidId) {
+        RentalBid::find($rentalBidId)->update([
+            'accepted' => true,
+        ]);
+        return redirect()->back();
+    }
+
+    public function declineRentalBid($rentalBidId) {
+        RentalBid::find($rentalBidId)->update([
+            'accepted' => false,
+        ]);
+        return redirect()->back();
+    }
 }
