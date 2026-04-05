@@ -48,6 +48,11 @@ class Advertisement extends Model
         return $this->hasMany(OfferBid::class);
     }
 
+    public function offerAccepted() {
+        if ($this->type !== 'offer') return false;
+        return $this->offerBids()->where('accepted', true)->exists();
+    }
+
     public function favoritedBy() {
         return $this->belongsToMany(User::class, 'favorites');
     }

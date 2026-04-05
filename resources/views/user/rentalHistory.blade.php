@@ -16,6 +16,7 @@
                         <th class="py-2 px-4 border-b">{{ __('Created At') }}</th>
                         <th class="py-2 px-4 border-b">{{ __('Status') }}</th>
                         <th class="py-2 px-4 border-b"></th>
+                        <th class="py-2 px-4 border-b"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,6 +39,11 @@
                                 <td class="py-2 px-4 border-b">
                                     <a href="{{ route('ads.show', ['adId' => $bid->advertisement->id]) }}" class="btn btn-primary btn-sm">
                                         {{ __('View Details') }}
+                                    </a>
+                                </td>
+                                <td class="py-2 px-4 border-b">
+                                    <a href="{{ route('rental.return.form', ['rentalBidId' => $bid->id]) }}" class="btn btn-primary btn-sm">
+                                        {{ __('Return') }}
                                     </a>
                                 </td>
 

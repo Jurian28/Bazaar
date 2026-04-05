@@ -1,6 +1,6 @@
 @extends('company.layout')
 
-@section('title', __('Other PageXXX'))
+@section('title', __('Import Export'))
 
 @section('content')
     <div class="upload-container">

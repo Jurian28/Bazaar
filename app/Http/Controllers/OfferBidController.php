@@ -35,4 +35,11 @@ class OfferBidController extends Controller
 
         return redirect()->route('ads.show', ['adId' => $ad->id]);
     }
+
+    public function acceptOfferBid($offerBidId) {
+        OfferBid::find($offerBidId)->update([
+            'accepted' => true,
+        ]);
+        return redirect()->back();
+    }
 }

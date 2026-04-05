@@ -8,11 +8,13 @@ require __DIR__ . '/routes/public.php';
 require __DIR__ . '/routes/ads.php';
 require __DIR__ . '/routes/history.php';
 require __DIR__ . '/routes/favorites.php';
+require __DIR__ . '/routes/contracts.php';
 
 
 Route::group(['middleware' => 'web'], function () {
     Route::get('change-locale/{locale}', [Language::class, 'changeLocale'])->name('change-locale');
 });
+
 
 
 getAdsRoutes(NO_SLUG_ROUTE_SUFFIX);

@@ -82,4 +82,13 @@ class User extends Authenticatable
     public function favorites() {
         return $this->belongsToMany(Advertisement::class, 'favorites');
     }
+
+    public function isRole(string $role) {
+        return $this->user_type == $role;
+    }
+
+
+    public function reviews() {
+        return $this->hasMany(Review::class, 'user_id');
+    }
 }

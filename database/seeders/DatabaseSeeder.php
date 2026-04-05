@@ -248,13 +248,13 @@ class DatabaseSeeder extends Seeder
 
         // Reviews
         Review::create([
-            'user_id' => $buyer1->id,
+            'user_sender_id' => $buyer1->id,
             'advertisement_id' => $ad1->id,
             'rating' => 5,
             'comment' => 'Great seller, item as described.'
         ]);
         Review::create([
-            'user_id' => $buyer2->id,
+            'user_sender_id' => $buyer2->id,
             'advertisement_id' => $ad5->id,
             'rating' => 4,
             'comment' => 'Scooter was fun to ride, battery could be better.'
@@ -291,10 +291,5 @@ class DatabaseSeeder extends Seeder
             'order' => 2,
             'data' => ['title' => 'Best Ads', 'limit' => 4],
         ]);
-
-
-        // Minimal contracts (table has only timestamps)
-        Contract::create();
-        Contract::create();
     }
 }

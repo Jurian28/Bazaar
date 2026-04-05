@@ -1,0 +1,12 @@
+title,description,type,start_date,end_date,price_per_day,price,start_price,end_date_offer
+Mountain Bike,High-quality mountain bike,rental,2026-04-05,2026-04-20,15.00,,,
+Gaming Laptop,Powerful laptop for gaming,sale,,,,1200.00,,
+Kayak,River kayak for 2 people,rental,2026-04-07,2026-04-14,25.00,,,
+Smartphone,iPhone 14 Pro Max,sale,,,,999.99,,
+Camera,DSLR camera with 18-55mm lens,rental,2026-04-03,2026-04-10,12.50,,,
+Electric Scooter,City e-scooter,sale,,,,450.00,,
+Tent,4-person camping tent,rental,2026-04-08,2026-04-15,8.00,,,
+Headphones,Noise-cancelling headphones,sale,,,,199.99,,
+Road Bike,Lightweight road bike,rental,2026-04-04,2026-04-18,20.00,,,
+Smartwatch,Fitness smartwatch,sale,,,,299.99,,
+Vintage Guitar,Classic acoustic guitar,offer,,,,,500.00,2026-04-25

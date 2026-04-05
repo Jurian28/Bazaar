@@ -3,13 +3,14 @@
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\OfferBidController;
 use App\Http\Controllers\RentalBidController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SaleBidController;
 use Illuminate\Support\Facades\Route;
 
 
 
 Route::get('/ads/{adId}', [AdController::class, 'showAd'])->name('ads.show');
-Route::post('/ads/{adId}/review', [AdController::class, 'review'])->name('ads.review');
+Route::post('/ads/{adId}/review', [ReviewController::class, 'reviewAd'])->name('ads.review');
 
 Route::post('/company/{companyId}/uploadAdCSV', [AdController::class, 'uploadAds'])->name('company.uploadAdCSV');
 
@@ -19,16 +20,16 @@ Route::controller(RentalBidController::class)
         Route::get('/ads/{ad}/rent',  'create')->name('ads.rent.form');
         Route::post('/ads/{ad}/rent',  'store')->name('ads.rent');
 
-
-
+        Route::get('/rentalBid/return/{rentalBidId}',  'showReturn')->name('rental.return.form');
+        Route::post('/rentalBid/return/{rentalBidId}',  'return')->name('rental.return');
     });
 
 
 Route::controller(RentalBidController::class)
     ->middleware(['role:seller'])
     ->group(function () {
-        Route::get('/rentalBid/accept/{rentalBidId}', 'acceptRentalBid')->name('rentalBid.accept')->middleware('role:seller');
-        Route::get('/rentalBid/decline/{rentalBidId}', 'declineRentalBid')->name('rentalBid.decline')->middleware('role:seller');
+        Route::get('/rentalBid/accept/{rentalBidId}', 'acceptRentalBid')->name('rentalBid.accept');
+        Route::get('/rentalBid/decline/{rentalBidId}', 'declineRentalBid')->name('rentalBid.decline');
     });
 
 
@@ -44,6 +45,13 @@ Route::controller(OfferBidController::class)
     ->group(function () {
         Route::get('/ads/{ad}/bid',  'create')->name('ads.bid.form');
         Route::post('/ads/{ad}/bid',  'store')->name('ads.bid');
+    });
+
+
+Route::controller(OfferBidController::class)
+    ->middleware(['role:seller'])
+    ->group(function () {
+        Route::get('/offerBid/accept/{offerBidId}', 'acceptOfferBid')->name('offerBid.accept')->middleware('role:seller');
     });
 
 

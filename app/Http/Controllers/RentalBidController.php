@@ -54,4 +54,26 @@ class RentalBidController extends Controller
         ]);
         return redirect()->back();
     }
+
+
+    public function showReturn($rentalBidId) {
+        $rentalBid = RentalBid::find($rentalBidId);
+        $company = Company::getDefaultCompany();
+
+        return view('user.returnRentalBid', compact('rentalBid', 'company'));
+    }
+
+
+    public function return(Request $request, $rentalBidId) {
+        $validated = $request->validate([
+            'return_image' => ['required', 'image'],
+        ]);
+        $path = $request->file('return_image')->store('rentals', 'public');
+
+        $rentalBid = RentalBid::find($rentalBidId)->update([
+            'photo_returned' => $path,
+        ]);
+
+        return redirect()->back();
+    }
 }

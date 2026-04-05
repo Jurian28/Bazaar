@@ -25,6 +25,12 @@ class Company extends Model
         return $this->hasOne(User::class);
     }
 
+
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
+
     public function advertisements()
     {
         return $this->hasMany(Advertisement::class);

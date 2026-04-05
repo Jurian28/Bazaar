@@ -7,7 +7,6 @@ use App\Models\Offer;
 use Illuminate\Support\Facades\DB;
 use App\Models\Company;
 use App\Models\Rental;
-use App\Models\Review;
 use App\Models\Sale;
 use App\Models\User;
 use Endroid\QrCode\Builder\Builder;
@@ -143,27 +142,6 @@ class AdController extends Controller {
         ]);
     }
 
-
-    public function review(Request $request, $adId) {
-        $validated = $request->validate([
-            'rating' => 'string',
-            'comment' => 'nullable|string'
-        ]);
-
-        if (!($user = auth()->user())) {
-            abort(403);
-        }
-
-        Review::create([
-            'user_id' => $user->id,
-            'advertisement_id' => $adId,
-            'rating' => $validated['rating'],
-            'comment' => $validated['comment'],
-        ]);
-
-        return redirect()->back();
-    }
-
     public function getAdsWithFilter($AdSstartQuery, Request $request) {
         $query = $AdSstartQuery;
 
@@ -200,8 +178,7 @@ class AdController extends Controller {
 
 
 
-    public function uploadAds(Request $request, $companyId)
-    {
+    public function uploadAds(Request $request, $companyId) {
         $request->validate([
             'file' => 'required|mimes:csv,txt'
         ]);
@@ -224,29 +201,34 @@ class AdController extends Controller {
                     'company_id' => $companyId
                 ]);
 
-                if ($row['type'] === 'rental') {
-                    Rental::create([
-                        'advertisement_id' => $ad->id,
-                        'start_date' => $row['start_date'],
-                        'end_date' => $row['end_date'],
-                        'price_per_day' => $row['price_per_day'],
-                        'wear_level' => $row['wear_level'],
-                        'max_rentals' => $row['max_rentals'],
-                    ]);
-                }
+                switch ($row['type']) {
+                    case 'rental':
+                        Rental::create([
+                            'advertisement_id' => $ad->id,
+                            'start_date' => $row['start_date'],
+                            'end_date' => $row['end_date'],
+                            'price_per_day' => $row['price_per_day'],
+                        ]);
+                        break;
 
-                if ($row['type'] === 'sale') {
-                    Sale::create([
-                        'advertisement_id' => $ad->id,
-                        'start_price' => $row['start_price'],
-                        'end_time' => $row['end_time'],
-                        'max_bids' => $row['max_bids'],
-                    ]);
+                    case 'sale':
+                        Sale::create([
+                            'advertisement_id' => $ad->id,
+                            'price' => $row['price'],
+                        ]);
+                        break;
+
+                    case 'offer':
+                        Offer::create([
+                            'advertisement_id' => $ad->id,
+                            'start_price' => $row['start_price'],
+                            'end_date' => $row['end_date_offer'],
+                        ]);
+                        break;
                 }
             }
         });
 
         return redirect()->back()->with('success', 'CSV uploaded successfully!');
     }
-
 }

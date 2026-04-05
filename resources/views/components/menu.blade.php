@@ -67,6 +67,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('company.importExport') }}" style="color: {{ $secondaryColor }}">{{ __('Import/Export') }}</a>
                     </li>
+
+
+                    @if($company->id === 1) {{--  default company  --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contract.download.form') }}" style="color: {{ $secondaryColor }}">{{ __('Contracts') }}</a>
+                    </li>
+                    @endif
                 @endif
             </ul>
 
