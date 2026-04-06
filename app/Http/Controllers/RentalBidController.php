@@ -70,9 +70,22 @@ class RentalBidController extends Controller
         ]);
         $path = $request->file('return_image')->store('rentals', 'public');
 
-        $rentalBid = RentalBid::find($rentalBidId)->update([
+        $rentalBid = RentalBid::findOrFail($rentalBidId);
+        $rentalBid->update([
             'photo_returned' => $path,
         ]);
+
+        $ad = $rentalBid->advertisement()->with('rental')->first();
+        if ($ad && $ad->rental) {
+            $days = 0;
+            if ($rentalBid->start_date && $rentalBid->end_date) {
+                $days = max(0, (new \DateTime($rentalBid->start_date))->diff(new \DateTime($rentalBid->end_date))->days);
+            }
+            $wearPerDay = RentalBid::$WEAR_PER_DAY;
+            $increment = $days * max(0, $wearPerDay);
+            $newWear = min(100, max(0, (int) $ad->rental->wear_level + $increment));
+            $ad->rental->update(['wear_level' => $newWear]);
+        }
 
         return redirect()->back();
     }

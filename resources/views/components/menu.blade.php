@@ -35,69 +35,69 @@
                     </li>
                 @endif
 
-                @if(auth()->user()?->isRole(User::TYPE_SELLER))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">{{ __('Create Ad') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('seller.saleHistory') }}" style="color: {{ $secondaryColor }}">{{ __('My sales') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('seller.offerHistory') }}" style="color: {{ $secondaryColor }}">{{ __('My offers') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('seller.rentalOverview') }}" style="color: {{ $secondaryColor }}">{{ __('Agenda') }}</a>
-                    </li>
-                @endif
+@if(auth()->user()?->isRole(User::TYPE_SELLER) || auth()->user()?->isRole(User::TYPE_COMPANY))
+    <li class="nav-item">
+        <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">{{ __('Create Ad') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('seller.saleHistory') }}" style="color: {{ $secondaryColor }}">{{ __('My sales') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('seller.offerHistory') }}" style="color: {{ $secondaryColor }}">{{ __('My offers') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('seller.rentalOverview') }}" style="color: {{ $secondaryColor }}">{{ __('Agenda') }}</a>
+    </li>
+@endif
 
-                @if(auth()->user()?->isRole(User::TYPE_COMPANY))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">{{ __('Create Ad') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('company.showSettings') }}" style="color: {{ $secondaryColor }}">{{ __('Settings') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('company.components') }}" style="color: {{ $secondaryColor }}">{{ __('Components') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('company.importExport') }}" style="color: {{ $secondaryColor }}">{{ __('Import/Export') }}</a>
-                    </li>
+@if(auth()->user()?->isRole(User::TYPE_COMPANY))
+    <li class="nav-item">
+        <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">{{ __('Create Ad') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('company.showSettings') }}" style="color: {{ $secondaryColor }}">{{ __('Settings') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ company_route('company.components') }}" style="color: {{ $secondaryColor }}">{{ __('Components') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ company_route('company.importExport') }}" style="color: {{ $secondaryColor }}">{{ __('Import CSV') }}</a>
+    </li>
 
 
-                    @if($company->id === 1) {{--  default company  --}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('contract.download.form') }}" style="color: {{ $secondaryColor }}">{{ __('Contracts') }}</a>
-                    </li>
-                    @endif
-                @endif
-            </ul>
+    @if($company->id === 1) {{--  default company  --}}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('contract.download.form') }}" style="color: {{ $secondaryColor }}">{{ __('Contracts') }}</a>
+    </li>
+    @endif
+@endif
+</ul>
 
-            <!-- Authentication links -->
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <x-language :color="$secondaryColor"/>
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ company_route('login') }}" style="color: {{ $secondaryColor }}">{{ __('Login') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ company_route('register') }}" style="color: {{ $secondaryColor }}">{{ __('Register') }}</a>
-                    </li>
-                @endguest
+<!-- Authentication links -->
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+<x-language :color="$secondaryColor"/>
+@guest
+    <li class="nav-item">
+        <a class="nav-link" href="{{ company_route('login') }}" style="color: {{ $secondaryColor }}">{{ __('Login') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ company_route('register') }}" style="color: {{ $secondaryColor }}">{{ __('Register') }}</a>
+    </li>
+@endguest
 
-                @auth
-                    <li class="nav-item d-flex align-items-center">
-                        <form method="POST" action="{{ company_route('logout') }}" class="m-0">
-                            @csrf
-                            <button type="submit"
-                                    class="nav-link btn btn-link"
-                                    style="color: {{ $secondaryColor }};">
-                                {{ __('Log Out') }}
-                            </button>
-                        </form>
-                    </li>
-                @endauth
-            </ul>
-        </div>
-    </nav>
+@auth
+    <li class="nav-item d-flex align-items-center">
+        <form method="POST" action="{{ company_route('logout') }}" class="m-0">
+            @csrf
+            <button type="submit"
+                    class="nav-link btn btn-link"
+                    style="color: {{ $secondaryColor }};">
+                {{ __('Log Out') }}
+            </button>
+        </form>
+    </li>
+@endauth
+</ul>
+</div>
+</nav>
 </header>

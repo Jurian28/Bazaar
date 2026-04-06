@@ -26,7 +26,7 @@ class AdController extends Controller {
     }
 
     public function showAd(Request $request, $adId): View {
-        $ad = Advertisement::with('offerBids')->findOrFail($adId);
+        $ad = Advertisement::with(['offerBids','linkedAds'])->findOrFail($adId);
 
         $qrCode = $this->getQrCode($adId);
 
@@ -44,13 +44,12 @@ class AdController extends Controller {
     }
 
     private function getQrCode($adId): string {
-        // Build QR code data URI using Endroid QrCode v6 fluent builder
-        $result = Builder::create()
-            ->writer(new PngWriter())
-            ->data(route('ads.show', ['adId' => $adId]))
-            ->build();
+        $qrCode = new Builder(
+            writer: new PngWriter(),
+            data: route('ads.show', ['adId' => $adId])
+        );
 
-        return $result->getDataUri();
+        return $qrCode->build()->getDataUri();
     }
 
     public function showCreateAd($companySlug = null): View {
@@ -76,6 +75,17 @@ class AdController extends Controller {
             'description' => 'required|string',
             'type' => 'required|in:sale,offer,rental',
         ]);
+
+
+        $existingCount = Advertisement::where('company_id', $company->id)
+            ->where('type', $request->type)
+            ->count();
+
+        if ($existingCount >= Advertisement::MAXIMUM) {
+            return back()->withErrors([
+                'type' => 'You can only have a maximum of 4 ads for this type.'
+            ])->withInput();
+        }
 
         $ad = Advertisement::create([
             'title' => $request->title,

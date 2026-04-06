@@ -126,5 +126,12 @@
     "User type": "Gebruikerstype",
     "Individual Advertiser": "Particuliere adverteerder",
     "Business Advertiser": "Zakelijke adverteerder",
-    "Import/Export": "Importeren/Exporteren"
+    "Import/Export": "Importeren/Exporteren",
+
+
+    "Bids": "Biedingen",
+    "My sales": "Mijn verkopen",
+    "My offers": "Mijn biedingen",
+    "Import CSV": "CSV importeren",
+    "Contracts": "Contracten"
 }

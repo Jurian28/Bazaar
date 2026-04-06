@@ -11,6 +11,12 @@
                 <p>
                     <strong>{{ __('Price per day') }}: €{{ number_format($ad->rental->price_per_day, 2) }}</strong>
                 </p>
+                <p>
+                    <strong>{{ __('Start time') }}: {{ $ad->rental->start_date }}</strong>
+                </p>
+                <p>
+                    <strong>{{ __('End time') }}: {{ $ad->rental->end_date }}</strong>
+                </p>
             </div>
         </div>
 

@@ -126,5 +126,13 @@
     "User type": "User type",
     "Individual Advertiser": "Individual Advertiser",
     "Business Advertiser": "Business Advertiser",
-    "Import/Export": "Import/Export"
+    "Import/Export": "Import/Export",
+
+
+
+    "Bids": "Bids",
+    "My sales": "My sales",
+    "My offers": "My offers",
+    "Import CSV": "Import CSV",
+    "Contracts": "Contracts"
 }

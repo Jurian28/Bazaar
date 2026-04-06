@@ -9,6 +9,8 @@ class RentalBid extends Model
 {
     use HasFactory;
 
+    public static $WEAR_PER_DAY = 1;
+
     protected $table = 'rental_bids';
 
     protected $fillable = [

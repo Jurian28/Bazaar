@@ -16,8 +16,7 @@
     <a class="navbar-brand" href="#">{{ __('Dashboard') }}</a>
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="{{ route('company.showSettings') }}">{{ __('Settings') }}</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('company.components') }}">{{ __('Edit home page') }}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ company_route('index', ['companySlug' => auth()->user()->company->slug])}}">{{ __('Home') }}</a></li>
         </ul>
     </div>
 </nav>

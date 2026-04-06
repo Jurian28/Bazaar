@@ -19,6 +19,27 @@ class Advertisement extends Model
         'type',
     ];
 
+    // Self-referential many-to-many for linked advertisements
+    public function linkedAds()
+    {
+        return $this->belongsToMany(
+            Advertisement::class,
+            'advertisement_links',
+            'advertisement_id',
+            'linked_advertisement_id'
+        );
+    }
+
+    public function linkedByAds()
+    {
+        return $this->belongsToMany(
+            Advertisement::class,
+            'advertisement_links',
+            'linked_advertisement_id',
+            'advertisement_id'
+        );
+    }
+
     public function sale() {
         return $this->hasOne(Sale::class);
     }

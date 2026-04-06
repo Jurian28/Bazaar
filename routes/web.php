@@ -20,9 +20,11 @@ Route::group(['middleware' => 'web'], function () {
 getAdsRoutes(NO_SLUG_ROUTE_SUFFIX);
 getAuthRoutes(NO_SLUG_ROUTE_SUFFIX);
 getPublicRoutes(NO_SLUG_ROUTE_SUFFIX);
+getCompanyRoutes(NO_SLUG_ROUTE_SUFFIX);
 
 Route::prefix('c/{companySlug}')->group(function () {
     getAdsRoutes();
     getAuthRoutes();
     getPublicRoutes();
+    getCompanyRoutes();
 });

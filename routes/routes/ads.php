@@ -26,7 +26,7 @@ Route::controller(RentalBidController::class)
 
 
 Route::controller(RentalBidController::class)
-    ->middleware(['role:seller'])
+    ->middleware(['role:seller,company'])
     ->group(function () {
         Route::get('/rentalBid/accept/{rentalBidId}', 'acceptRentalBid')->name('rentalBid.accept');
         Route::get('/rentalBid/decline/{rentalBidId}', 'declineRentalBid')->name('rentalBid.decline');
@@ -49,9 +49,9 @@ Route::controller(OfferBidController::class)
 
 
 Route::controller(OfferBidController::class)
-    ->middleware(['role:seller'])
+    ->middleware(['role:seller,company'])
     ->group(function () {
-        Route::get('/offerBid/accept/{offerBidId}', 'acceptOfferBid')->name('offerBid.accept')->middleware('role:seller');
+        Route::get('/offerBid/accept/{offerBidId}', 'acceptOfferBid')->name('offerBid.accept')->middleware('role:seller,company');
     });
 
 

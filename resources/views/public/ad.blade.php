@@ -42,6 +42,19 @@
                     <strong>{{ __('Price per day') }}:</strong>
                     €{{ number_format($ad->rental->price_per_day, 2) }}
                 </li>
+
+                <li class="list-group-item">
+                    <strong>{{ __('Start time') }}:</strong>
+                    {{ $ad->rental->start_date }}
+                </li>
+                <li class="list-group-item">
+                    <strong>{{ __('End time') }}:</strong>
+                    {{ $ad->rental->end_date }}
+                </li>
+                <li class="list-group-item">
+                    <strong>{{ __('Wear level') }}:</strong>
+                    {{$ad->rental->wear_level }}
+                </li>
             @endif
 
             @if($ad->isOffer())
@@ -55,6 +68,8 @@
                     {{ $ad->offer->end_date }}
                 </li>
             @endif
+
+            <img src="{{ $qrCode }}" alt="qr code" style="width: 100px; height: 100px;">
         </ul>
 
         <div class="card-body">

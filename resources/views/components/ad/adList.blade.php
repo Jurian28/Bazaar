@@ -30,11 +30,6 @@
                        placeholder="{{ __('Min Sale Price') }}"
                        value="{{ request('min_price') }}">
             </div>
-            <div class="col-md-2">
-                <input type="number" name="max_bids" class="form-control"
-                       placeholder="{{ __('Max Bids') }}"
-                       value="{{ request('max_bids') }}">
-            </div>
 
             <!-- Rental Filters -->
             <div class="col-md-2">

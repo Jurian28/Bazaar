@@ -14,12 +14,14 @@ class Rental extends Model
         'start_date',
         'end_date',
         'price_per_day',
+        'wear_level',
     ];
 
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
         'price_per_day' => 'decimal:2',
+        'wear_level' => 'integer',
     ];
 
     public function advertisement() {

@@ -1,4 +1,4 @@
-@extends('company.layout')
+@extends('components.layout')
 
 @section('title', __('Import Export'))
 
