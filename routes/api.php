@@ -23,7 +23,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('c/{companySlug}')->group(function () {
         Route::get('/ads', [ApiAdvertisementController::class, 'index']);
 
-        Route::middleware(['web', 'auth'])
+        Route::middleware(['web'])
             ->withoutMiddleware([VerifyCsrfToken::class])
             ->group(function () {
                 Route::post('/ads', [ApiAdvertisementController::class, 'store']);

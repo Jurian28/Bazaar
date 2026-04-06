@@ -18,7 +18,7 @@ class AdController extends Controller {
     public function ads(Request $request, $companySlug = null): View {
         $company = Company::getBySlug($companySlug);
 
-        $adsQuery = $company->advertisements()->with(['sale', 'rental']);
+        $adsQuery = $company->advertisements()->with(['sale', 'rental', 'offer', 'company', 'user']);
         $ads = $this->getAdsWithFilter($adsQuery, $request);
 
 
@@ -26,7 +26,7 @@ class AdController extends Controller {
     }
 
     public function showAd(Request $request, $adId): View {
-        $ad = Advertisement::where('id', $adId)->with('offerBids')->first();
+        $ad = Advertisement::with('offerBids')->findOrFail($adId);
 
         $qrCode = $this->getQrCode($adId);
 
@@ -44,12 +44,13 @@ class AdController extends Controller {
     }
 
     private function getQrCode($adId): string {
-        $qrCode = new Builder(
-            writer: new PngWriter(),
-            data: route('ads.show', ['adId' => $adId])
-        );
+        // Build QR code data URI using Endroid QrCode v6 fluent builder
+        $result = Builder::create()
+            ->writer(new PngWriter())
+            ->data(route('ads.show', ['adId' => $adId]))
+            ->build();
 
-        return $qrCode->build()->getDataUri();
+        return $result->getDataUri();
     }
 
     public function showCreateAd($companySlug = null): View {
@@ -150,7 +151,7 @@ class AdController extends Controller {
         });
         $query->when($request->filled('min_price'), function ($q) use ($request) {
             $q->whereHas('sale', function ($q2) use ($request) {
-                $q2->where('start_price', '>=', $request->min_price);
+                $q2->where('price', '>=', $request->min_price);
             });
         });
         $query->when($request->filled('max_bids'), function ($q) use ($request) {

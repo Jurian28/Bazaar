@@ -2,10 +2,6 @@
 @php
     use App\Models\User;
 
-    function isRole($role): bool {
-        return $role == auth()->user()?->user_type;
-    }
-
     $primaryColor = $company->primary_color ?? '#6b7280';
     $secondaryColor = $company->secondary_color ?? '#ffffff';
     $fontFamily = $company->font_family ?? 'sans-serif';
@@ -24,7 +20,7 @@
                     <a class="nav-link" href="{{ company_route('ads') }}" style="color: {{ $secondaryColor }}">{{ __('Ads') }}</a>
                 </li>
 
-                @if(isRole(User::TYPE_USER))
+                @if(auth()->user()?->isRole(User::TYPE_USER))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('favorites') }}" style="color: {{ $secondaryColor }}">{{ __('Favorites') }}</a>
                     </li>
@@ -39,7 +35,7 @@
                     </li>
                 @endif
 
-                @if(isRole(User::TYPE_SELLER))
+                @if(auth()->user()?->isRole(User::TYPE_SELLER))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">{{ __('Create Ad') }}</a>
                     </li>
@@ -54,7 +50,7 @@
                     </li>
                 @endif
 
-                @if(isRole(User::TYPE_COMPANY))
+                @if(auth()->user()?->isRole(User::TYPE_COMPANY))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ company_route('ad.create') }}" style="color: {{ $secondaryColor }}">{{ __('Create Ad') }}</a>
                     </li>

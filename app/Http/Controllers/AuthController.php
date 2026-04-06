@@ -91,7 +91,7 @@ class AuthController extends Controller
 
 
         return Company::create([
-            'name' => 'New Company',
+            'name' => 'New company',
             'slug' => $slug,
             'primary_color' => '#1F2937',
             'secondary_color' => '#6B7280',

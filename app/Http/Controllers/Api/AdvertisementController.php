@@ -117,7 +117,7 @@ class AdvertisementController extends Controller
         });
         $query->when($request->filled('min_price'), function ($q) use ($request) {
             $q->whereHas('sale', function ($q2) use ($request) {
-                $q2->where('start_price', '>=', $request->min_price);
+                $q2->where('price', '>=', $request->min_price);
             });
         });
         $query->when($request->filled('max_bids'), function ($q) use ($request) {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
